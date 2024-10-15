@@ -4,13 +4,17 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class SaveData
+public abstract class SaveData
 {
+    
 }
 
+/// <summary>
+/// Class intended for the saving of system data. Like preferences.
+/// </summary>
 [System.Serializable]
 public class SettingsData : SaveData
 {
     // Camera
-    public PlayerCamera.CameraSettings cameraSettings;
+    public PlayerCamera.CameraSettings cameraSettings = new();
 }

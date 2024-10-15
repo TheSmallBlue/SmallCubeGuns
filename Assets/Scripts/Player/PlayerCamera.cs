@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlayerCamera : MonoBehaviour
 
         if(overrideSettings) return;
 
-        settings = SaveManager.Load<SettingsData>().cameraSettings;
+        settings = SaveManager<SettingsData>.Load().cameraSettings;
     }
 
     private void LateUpdate() 
@@ -43,3 +44,35 @@ public class PlayerCamera : MonoBehaviour
         public float sensitivity = 0.5f;
     }
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(PlayerCamera))]
+public class PlayerCameraEditor : Editor
+{
+    SerializedProperty overrideSettings, headTransform, cameraSettings;
+
+    private void OnEnable()
+    {
+        overrideSettings = serializedObject.FindProperty("overrideSettings");
+        headTransform = serializedObject.FindProperty("headTransform");
+        cameraSettings = serializedObject.FindProperty("settings");
+    }
+
+
+    public override void OnInspectorGUI()
+    {
+        EditorGUILayout.PropertyField(headTransform);
+        EditorGUILayout.PropertyField(overrideSettings);
+
+        if (overrideSettings.boolValue)
+        {
+            EditorGUILayout.PropertyField(cameraSettings);
+        }
+
+        serializedObject.ApplyModifiedProperties();
+        serializedObject.Update();
+    }
+}
+
+#endif
