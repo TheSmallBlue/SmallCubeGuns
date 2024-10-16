@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerGrounded : PlayerState
 {
-    [SerializeField] float maxSpeed;
-    [SerializeField] float acceleration, decceleration;
+    [SerializeField] PlayerMovement.HorizontalMovementSettings horizontalMovementSettings;
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.Move(maxSpeed, acceleration, decceleration);
+        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), horizontalMovementSettings);
     }
 
     public override void OnStateUpdate()

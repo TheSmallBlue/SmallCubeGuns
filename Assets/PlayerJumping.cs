@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerJumping : PlayerState
 {
     [Header("Air movement")]
-    [SerializeField] float maxSpeed;
-    [SerializeField] float acceleration, decceleration;
+    [SerializeField] PlayerMovement.HorizontalMovementSettings horizontalMovementSettings;
 
     [Header("Jump")]
     [SerializeField] float jumpForce;
@@ -27,8 +26,8 @@ public class PlayerJumping : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Movement.Move(maxSpeed, acceleration, decceleration);
-        
+        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), horizontalMovementSettings);
+
         switch (currentPhase)
         {
             case JumpPhases.Jump:

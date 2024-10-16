@@ -4,10 +4,21 @@ using UnityEngine;
 
 public static class VectorExtensionMethods
 {
+    public static Vector3 SetAxis(this Vector3 vector, VectorAxis axis, float number)
+    {
+        vector[(int)axis] = number;
+        return vector;
+    }
+
+    public static Vector3 AddToAxis(this Vector3 vector, VectorAxis axis, float number)
+    {
+        vector[(int)axis] += number;
+        return vector;
+    }
+
     public static Vector3 CollapseAxis(this Vector3 vector, VectorAxis axis)
     {
-        vector[(int)axis] = 0;
-        return vector;
+        return vector.SetAxis(axis, 0);
     }
 
     enum IndexType

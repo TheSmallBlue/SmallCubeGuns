@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerFalling : PlayerState
 {
     [Header("Air movement")]
-    [SerializeField] float maxSpeed;
-    [SerializeField] float acceleration, decceleration;
+    [SerializeField] PlayerMovement.HorizontalMovementSettings horizontalMovementSettings;
 
     [Header("Fall")]
     [SerializeField] float fallGravityMultiplier;
@@ -20,9 +19,9 @@ public class PlayerFalling : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Movement.Move(maxSpeed, acceleration, decceleration);
+        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), horizontalMovementSettings);
 
-        if(Movement.IsGrounded)
+        if (Movement.IsGrounded)
         {
             SourceFSM.ChangeState(PlayerStates.StateType.Grounded);
         }
