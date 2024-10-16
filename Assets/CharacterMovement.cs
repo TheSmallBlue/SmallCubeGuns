@@ -21,17 +21,22 @@ public class CharacterMovement : MonoBehaviour
     [Header("Gravity")]
     [SerializeField] Vector3 gravity;
 
-    [Header("Floor and Step Settings")]
+    [Header("Floor and Wall Checks")]
     [SerializeField] LayerMask floorLayer;
 
     [Space]
-    [SerializeField] float stepRayHeight = -0.8f;
-    [SerializeField] float stepRayLowerLength;
-    [SerializeField] float stepRayUpperLength;
+    [SerializeField] float wallCheckHeight = 0.5f;
+    [SerializeField] float wallCheckRadius = 0.4f;
+    [SerializeField] float wallCheckLength = 0.2f;
 
     [Space]
-    [SerializeField] float stepHeight;
-    [SerializeField] float stepSmooth;
+    [SerializeField] float stepRayHeight = -0.8f;
+    [SerializeField] float stepRayLowerLength = 0.6f;
+    [SerializeField] float stepRayUpperLength = 0.6f;
+
+    [Space]
+    [SerializeField] float stepHeight = 0.3f;
+    [SerializeField] float stepSmooth = 0.1f;
 
     #endregion
 
@@ -61,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
     Vector3 stepRayUpperPos => transform.position.AddToAxis(VectorAxis.Y, stepRayHeight + stepHeight);
 
     /// <summary>
-    /// Check if there is an obstacle towards the direction given relative to the player. Will tell you if the obstacle is a wall, are step, or if there is no obstacle.
+    /// Checks if there is an obstacle towards the direction given relative to the player. Will tell you if the obstacle is a wall, are step, or if there is no obstacle.
     /// </summary>
     /// <param name="checkDirection">The direction in which to check.</param>
     /// <returns></returns>
@@ -70,9 +75,19 @@ public class CharacterMovement : MonoBehaviour
         bool lowerCheck = Physics.Raycast(stepRayLowerPos, checkDirection, stepRayLowerLength, floorLayer);
         bool higherCheck = Physics.Raycast(stepRayUpperPos, checkDirection, stepRayUpperLength, floorLayer);
 
-        if(lowerCheck && higherCheck) return ObstacleType.Wall;
-        if(lowerCheck && !higherCheck) return ObstacleType.Step;
+        if (lowerCheck && !higherCheck) return ObstacleType.Step;
+        if (lowerCheck && higherCheck || ObstructionCheck(checkDirection)) return ObstacleType.Wall;
         return ObstacleType.None;
+    }
+
+    /// <summary>
+    /// Checks whether if there is ANY obstruction towards the desired direction.
+    /// </summary>
+    /// <param name="checkDirection">The direction in which to check.</param>
+    /// <returns></returns>
+    public bool ObstructionCheck(Vector3 checkDirection)
+    {
+        return Physics.CapsuleCast(transform.position.AddToAxis(VectorAxis.Y, wallCheckHeight), transform.position.AddToAxis(VectorAxis.Y, -wallCheckHeight), wallCheckRadius, checkDirection, wallCheckLength, floorLayer);
     }
 
     public enum ObstacleType
@@ -126,6 +141,10 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnDrawGizmos() 
     {
+        // Walls
+        Gizmos.color = Color.red;
+        GizmosHelpers.DrawWireCapsule(transform.position.AddToAxis(VectorAxis.Y, wallCheckHeight), transform.position.AddToAxis(VectorAxis.Y, -wallCheckHeight), wallCheckRadius);
+        
         // Steps
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(stepRayLowerPos, stepRayLowerPos + transform.forward * stepRayLowerLength);
