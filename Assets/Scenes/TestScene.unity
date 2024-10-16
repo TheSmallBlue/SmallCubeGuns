@@ -308,8 +308,8 @@ MonoBehaviour:
     Decceleration: 8
   airMovement:
     MaxSpeed: 10
-    Acceleration: 10
-    Decceleration: 10
+    Acceleration: 5
+    Decceleration: 8
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +368,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 90
   orthographic: 0

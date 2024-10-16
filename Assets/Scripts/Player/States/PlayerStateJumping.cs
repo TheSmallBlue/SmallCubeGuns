@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterMovement))]
-public class PlayerJumping : PlayerState
+public class PlayerStateJumping : PlayerState
 {
     #region Serialized Variables
 
