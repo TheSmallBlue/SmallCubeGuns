@@ -2,24 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterMovement))]
 public class PlayerJumping : PlayerState
 {
+    #region Serialized Variables
+
     [Header("Air movement")]
-    [SerializeField] PlayerMovement.HorizontalMovementSettings horizontalMovementSettings;
+    [SerializeField] CharacterMovement.HorizontalMovementSettings horizontalMovementSettings;
 
     [Header("Jump")]
     [SerializeField] float jumpForce;
     [SerializeField] float startHoverThreshold, endHoverThreshold, hoverGravityMultiplier;
 
-    PlayerMovement Movement => Source.Movement;
+    [Header("Jump Buffering")]
+    [SerializeField] float jumpBufferTimeLength;
+
+    #endregion
+
+    #region Shortcuts & Helpers
+
+    CharacterMovement Movement => Source.Movement;
     Rigidbody RB => Movement.RB;
+
+    bool IsJumpBuffered => Time.time - lastJumpPressTime < jumpBufferTimeLength;
+
+    #endregion
+
+    #region Private Variables
+
+    float lastJumpPressTime = -1f;
 
     JumpPhases currentPhase;
 
-    public override void OnStateEnter()
+    #endregion
+
+    private void Update() 
+    {
+        // Jump Buffering
+        if (Input.GetKeyDown(KeyCode.Space) && !Movement.IsGrounded && lastJumpPressTime < 0)
+            lastJumpPressTime = Time.time;
+        else if(!IsJumpBuffered)
+            lastJumpPressTime = -1f;
+
+        // Jump check
+        if((Input.GetKeyDown(KeyCode.Space) || IsJumpBuffered) && Movement.IsGrounded)
+            SourceFSM.ChangeState(PlayerStates.StateType.Jumping);
+
+    }
+
+    public override void OnStateEnter(State<PlayerStates.StateType> previousState)
     {
         currentPhase = JumpPhases.Jump;
-        RB.velocity = Vector3.zero;
+        RB.velocity = RB.velocity.CollapseAxis(VectorAxis.Y);
 
         RB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
@@ -31,18 +65,18 @@ public class PlayerJumping : PlayerState
         switch (currentPhase)
         {
             case JumpPhases.Jump:
-                StartPhase();
+                StarterPhase();
                 break;
             case JumpPhases.Hover:
                 MiddlePhase();
                 break;
             case JumpPhases.Fall:
-                EndPhase();
+                EndingPhase();
                 break;
         }
     }
 
-    void StartPhase()
+    void StarterPhase()
     {
         if (!Input.GetKey(KeyCode.Space))
         {
@@ -74,7 +108,7 @@ public class PlayerJumping : PlayerState
         }
     }
 
-    void EndPhase()
+    void EndingPhase()
     {
         SourceFSM.ChangeState(PlayerStates.StateType.Falling);
     }

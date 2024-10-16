@@ -15,8 +15,8 @@ public class State<T>
         this.name = name;
     }
 
-    public event Action OnEnter = delegate { };
-    public void Enter() => OnEnter();
+    public event Action<State<T>> OnEnter = delegate { };
+    public void Enter(State<T> previousState) => OnEnter(previousState);
 
     public event Action OnUpdate = delegate { };
     public void Update() => OnUpdate();
@@ -25,7 +25,7 @@ public class State<T>
     public void FixedUpdate() => OnFixedUpdate();
 
     public event Action<T> OnExit = delegate { };
-    public void Exit(T nextState) => OnExit(nextState);
+    public void Exit(T nextInput) => OnExit(nextInput);
 
     /// <summary>
     ///  If this state can transition to state of type T, returns true. Otherwise, returns false

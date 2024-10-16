@@ -13,7 +13,7 @@ public class FiniteStateMachine<T>
     public FiniteStateMachine(State<T> initial)
     {
         current = initial;
-        current.Enter();
+        current.Enter(default);
     }
 
     public FiniteStateMachine(StateComponent<T> initial)
@@ -33,7 +33,7 @@ public class FiniteStateMachine<T>
         }
 
         current = initial.State;
-        current.Enter();
+        current.Enter(default);
     }
 
     public bool ChangeState(T desiredState)
@@ -41,8 +41,9 @@ public class FiniteStateMachine<T>
         if(current.TryToTransitionTo(desiredState, acceptAllTransitions, out State<T> nextState))
         {
             current.Exit(desiredState);
+            var last = current;
             current = nextState;
-            current.Enter();
+            current.Enter(last);
 
             return true;
         }

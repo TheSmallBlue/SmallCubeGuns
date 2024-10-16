@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
     #region Public Variables
 
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    #region Private Variables
+    #region Serialized Variables
 
     [Header("Gravity")]
     [SerializeField] Vector3 gravity;

@@ -2,22 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterMovement))]
 public class PlayerGrounded : PlayerState
 {
-    [SerializeField] PlayerMovement.HorizontalMovementSettings horizontalMovementSettings;
+    [SerializeField] CharacterMovement.HorizontalMovementSettings walkSettings, dashSettings;
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), horizontalMovementSettings);
+        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), Input.GetKey(KeyCode.LeftShift) ? dashSettings : walkSettings);
     }
 
     public override void OnStateUpdate()
     {
-        if (Source.Movement.IsGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            SourceFSM.ChangeState(PlayerStates.StateType.Jumping);
-        }
-
         if(!Source.Movement.IsGrounded)
         {
             SourceFSM.ChangeState(PlayerStates.StateType.Falling);

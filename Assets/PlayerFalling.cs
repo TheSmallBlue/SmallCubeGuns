@@ -2,19 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterMovement))]
 public class PlayerFalling : PlayerState
 {
+    #region Serialized Variables
+
     [Header("Air movement")]
-    [SerializeField] PlayerMovement.HorizontalMovementSettings horizontalMovementSettings;
+    [SerializeField] CharacterMovement.HorizontalMovementSettings horizontalMovementSettings;
 
     [Header("Fall")]
     [SerializeField] float fallGravityMultiplier;
 
-    PlayerMovement Movement => Source.Movement;
+    [Header("Coyote time")]
+    [SerializeField] float coyoteTimeLength;
 
-    public override void OnStateEnter()
+    #endregion
+
+    #region Shortcuts & Helpers
+
+    CharacterMovement Movement => Source.Movement;
+
+    bool InCoyoteTime => Time.time - lastGroundedTime < coyoteTimeLength && coyoteTimeLength >= 0;
+
+    #endregion
+
+    #region Private Variables
+
+    float lastGroundedTime = -1f;
+
+    #endregion
+
+    public override void OnStateEnter(State<PlayerStates.StateType> previousState)
     {
+        if(previousState.Name == "PlayerGrounded") 
+        {
+            lastGroundedTime = Time.time;
+        }
+
         Movement.GravityMultiplier = fallGravityMultiplier;
+    }
+
+    public override void OnStateUpdate()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && InCoyoteTime) 
+        {
+            SourceFSM.ChangeState(PlayerStates.StateType.Jumping);
+            lastGroundedTime = -1f;
+        }
     }
 
     public override void OnStateFixedUpdate()

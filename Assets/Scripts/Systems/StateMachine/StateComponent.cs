@@ -31,10 +31,10 @@ public abstract class StateComponent<T> : MonoBehaviour
         State.OverrideTransitions(SetTransitions().ToDictionary(x => x.Key, x => x.Value.State));
     }
 
-    public virtual void OnStateEnter() {}
+    public virtual void OnStateEnter(State<T> previousState) {}
     public virtual void OnStateUpdate() {}
     public virtual void OnStateFixedUpdate() { }
-    public virtual void OnStateExit(T nextState) {}
+    public virtual void OnStateExit(T nextInput) {}
 
     public virtual Dictionary<T, StateComponent<T>> SetTransitions()
     {

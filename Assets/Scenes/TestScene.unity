@@ -195,11 +195,12 @@ MonoBehaviour:
   horizontalMovementSettings:
     MaxSpeed: 10
     Acceleration: 8
-    Decceleration: 5
+    Decceleration: 10
   jumpForce: 5
   startHoverThreshold: 0.1
   endHoverThreshold: 0
   hoverGravityMultiplier: 0.75
+  jumpBufferTimeLength: 0.2
 --- !u!114 &86970518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +218,11 @@ MonoBehaviour:
     State: {fileID: 86970517}
   - Input: 2
     State: {fileID: 86970522}
-  horizontalMovementSettings:
+  walkSettings:
+    MaxSpeed: 5
+    Acceleration: 5
+    Decceleration: 5
+  dashSettings:
     MaxSpeed: 10
     Acceleration: 8
     Decceleration: 10
@@ -298,11 +303,14 @@ MonoBehaviour:
   Transitions:
   - Input: 0
     State: {fileID: 86970518}
+  - Input: 1
+    State: {fileID: 86970517}
   horizontalMovementSettings:
     MaxSpeed: 10
     Acceleration: 8
-    Decceleration: 5
+    Decceleration: 10
   fallGravityMultiplier: 2
+  coyoteTimeLength: 0.2
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
