@@ -7,9 +7,6 @@ public class PlayerFalling : PlayerState
 {
     #region Serialized Variables
 
-    [Header("Air movement")]
-    [SerializeField] CharacterMovement.HorizontalMovementSettings horizontalMovementSettings;
-
     [Header("Fall")]
     [SerializeField] float fallGravityMultiplier;
 
@@ -53,7 +50,7 @@ public class PlayerFalling : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), horizontalMovementSettings);
+        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), Source.Movement.GetAppropiateMovementSetting());
 
         if (Movement.IsGrounded)
         {

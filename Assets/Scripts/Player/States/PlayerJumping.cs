@@ -7,9 +7,6 @@ public class PlayerJumping : PlayerState
 {
     #region Serialized Variables
 
-    [Header("Air movement")]
-    [SerializeField] CharacterMovement.HorizontalMovementSettings horizontalMovementSettings;
-
     [Header("Jump")]
     [SerializeField] float jumpForce;
     [SerializeField] float startHoverThreshold, endHoverThreshold, hoverGravityMultiplier;
@@ -60,7 +57,7 @@ public class PlayerJumping : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), horizontalMovementSettings);
+        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), Source.Movement.GetAppropiateMovementSetting());
 
         switch (currentPhase)
         {

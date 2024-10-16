@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 86970514}
   - component: {fileID: 86970516}
-  - component: {fileID: 86970520}
+  - component: {fileID: 86970523}
   - component: {fileID: 86970521}
   - component: {fileID: 86970519}
   - component: {fileID: 86970518}
@@ -192,10 +192,6 @@ MonoBehaviour:
     State: {fileID: 86970518}
   - Input: 2
     State: {fileID: 86970522}
-  horizontalMovementSettings:
-    MaxSpeed: 10
-    Acceleration: 8
-    Decceleration: 10
   jumpForce: 5
   startHoverThreshold: 0.1
   endHoverThreshold: 0
@@ -218,14 +214,6 @@ MonoBehaviour:
     State: {fileID: 86970517}
   - Input: 2
     State: {fileID: 86970522}
-  walkSettings:
-    MaxSpeed: 5
-    Acceleration: 5
-    Decceleration: 5
-  dashSettings:
-    MaxSpeed: 10
-    Acceleration: 8
-    Decceleration: 10
 --- !u!114 &86970519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,28 +227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialState: {fileID: 86970518}
---- !u!114 &86970520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 86970511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4be6e23b837f0541af4fe2f31e66748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GravityMultiplier: 1
-  gravity: {x: 0, y: -9, z: 0}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  stepRayHeight: -0.9
-  stepRayLowerLength: 0.6
-  stepRayUpperLength: 0.6
-  stepHeight: 0.3
-  stepSmooth: 0.1
 --- !u!54 &86970521
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -305,12 +271,45 @@ MonoBehaviour:
     State: {fileID: 86970518}
   - Input: 1
     State: {fileID: 86970517}
-  horizontalMovementSettings:
-    MaxSpeed: 10
-    Acceleration: 8
-    Decceleration: 10
   fallGravityMultiplier: 2
   coyoteTimeLength: 0.2
+--- !u!114 &86970523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86970511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c823e7dd656284d99f6226abc438bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GravityMultiplier: 1
+  gravity: {x: 0, y: -9, z: 0}
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  wallCheckHeight: 0.5
+  wallCheckRadius: 0.4
+  wallCheckLength: 0.2
+  stepRayHeight: -0.9
+  stepRayLowerLength: 0.6
+  stepRayUpperLength: 0.6
+  stepHeight: 0.3
+  stepSmooth: 0.1
+  walkingMovement:
+    MaxSpeed: 8
+    Acceleration: 4
+    Decceleration: 6
+  dashingMovement:
+    MaxSpeed: 10
+    Acceleration: 5
+    Decceleration: 8
+  airMovement:
+    MaxSpeed: 10
+    Acceleration: 10
+    Decceleration: 10
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

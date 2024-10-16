@@ -7,7 +7,16 @@ public class CharacterMovement : MonoBehaviour
 {
     #region Public Variables
 
-    public Rigidbody RB { get; private set; }
+    public Rigidbody RB 
+    { 
+        get
+        {
+            if(rb == null) rb = GetComponent<Rigidbody>();
+
+            return rb;
+        }
+    }
+    Rigidbody rb;
 
     public Vector3 Gravity => gravity;
     public bool IsGrounded => GroundedCheck(out RaycastHit ignoredHit);
@@ -30,7 +39,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] float wallCheckLength = 0.2f;
 
     [Space]
-    [SerializeField] float stepRayHeight = -0.8f;
+    [SerializeField] float stepRayHeight = -0.9f;
     [SerializeField] float stepRayLowerLength = 0.6f;
     [SerializeField] float stepRayUpperLength = 0.6f;
 
@@ -40,12 +49,7 @@ public class CharacterMovement : MonoBehaviour
 
     #endregion
 
-    private void Awake() 
-    {
-        RB = GetComponent<Rigidbody>();
-    }
-
-    private void FixedUpdate() 
+    protected virtual void FixedUpdate() 
     {
         RB.AddForce(gravity * GravityMultiplier);
     }
@@ -107,7 +111,7 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     /// <param name="direction">The direction in which to move.</param>
     /// <param name="settings">Speed and acceleration settings.</param>
-    public void HorizontalMovement(Vector3 direction, HorizontalMovementSettings settings)
+    public virtual void HorizontalMovement(Vector3 direction, HorizontalMovementSettings settings)
     {
         direction = direction.CollapseAxis(VectorAxis.Y);
 
@@ -144,7 +148,7 @@ public class CharacterMovement : MonoBehaviour
         // Walls
         Gizmos.color = Color.red;
         GizmosHelpers.DrawWireCapsule(transform.position.AddToAxis(VectorAxis.Y, wallCheckHeight), transform.position.AddToAxis(VectorAxis.Y, -wallCheckHeight), wallCheckRadius);
-        
+
         // Steps
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(stepRayLowerPos, stepRayLowerPos + transform.forward * stepRayLowerLength);
