@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
-public class PlayerEquipmentHolder : EquipmentHolder
+[RequireComponent(typeof(PlayerInput))]
+public class PlayerEquipmentHolder : EquipmentHolder, IPlayerComponent
 {
     [SerializeField] float pickupRaylength = 2f;
     protected override void Awake()

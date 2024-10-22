@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
-public class PlayerMovement : CharacterMovement
+public class PlayerMovement : CharacterMovement, IPlayerComponent
 {
     #region Public Variables
 
@@ -21,6 +21,13 @@ public class PlayerMovement : CharacterMovement
     [SerializeField] HorizontalMovementSettings airMovement;
 
     #endregion
+
+    Player player;
+
+    private void Awake() 
+    {
+        player = GetComponent<Player>();
+    }
     
     private void Update() 
     {
@@ -31,7 +38,7 @@ public class PlayerMovement : CharacterMovement
     {
         if(IsGrounded)
         {
-            if(PlayerInput.Instance.IsButton("Sprint")) 
+            if(player.GetPlayerComponent<PlayerInput>().IsButton("Sprint")) 
                 return dashingMovement;
             else
                 return walkingMovement;

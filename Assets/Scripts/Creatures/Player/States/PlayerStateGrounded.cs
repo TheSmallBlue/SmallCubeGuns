@@ -8,12 +8,12 @@ public class PlayerStateGrounded : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(Source.Input.GetCameraBasedForward(), Source.Movement.GetAppropiateMovementSetting());
+        Source.GetPlayerComponent<PlayerMovement>().HorizontalMovement(Source.GetPlayerComponent<PlayerInput>().GetCameraBasedForward(), Source.GetPlayerComponent<PlayerMovement>().GetAppropiateMovementSetting());
     }
 
     public override void OnStateUpdate()
     {
-        if(!Source.Movement.IsGrounded)
+        if(!Source.GetPlayerComponent<PlayerMovement>().IsGrounded)
         {
             SourceFSM.ChangeState(PlayerStates.StateType.Falling);
         }

@@ -18,7 +18,7 @@ public class PlayerStateJumping : PlayerState
 
     #region Shortcuts & Helpers
 
-    CharacterMovement Movement => Source.Movement;
+    CharacterMovement Movement => Source.GetPlayerComponent<PlayerMovement>();
     Rigidbody RB => Movement.RB;
 
     bool IsJumpBuffered => Time.time - lastJumpPressTime < jumpBufferTimeLength;
@@ -36,13 +36,13 @@ public class PlayerStateJumping : PlayerState
     private void Update() 
     {
         // Jump Buffering
-        if (PlayerInput.Instance.IsButtonDown("Jump") && !Movement.IsGrounded && lastJumpPressTime < 0)
+        if (Source.GetPlayerComponent<PlayerInput>().IsButtonDown("Jump") && !Movement.IsGrounded && lastJumpPressTime < 0)
             lastJumpPressTime = Time.time;
         else if(!IsJumpBuffered)
             lastJumpPressTime = -1f;
 
         // Jump check
-        if((PlayerInput.Instance.IsButtonDown("Jump") || IsJumpBuffered) && Movement.IsGrounded)
+        if((Source.GetPlayerComponent<PlayerInput>().IsButtonDown("Jump") || IsJumpBuffered) && Movement.IsGrounded)
             SourceFSM.ChangeState(PlayerStates.StateType.Jumping);
 
     }
@@ -57,7 +57,7 @@ public class PlayerStateJumping : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(Source.Input.GetCameraBasedForward(), Source.Movement.GetAppropiateMovementSetting());
+        Source.GetPlayerComponent<PlayerMovement>().HorizontalMovement(Source.GetPlayerComponent<PlayerInput>().GetCameraBasedForward(), Source.GetPlayerComponent<PlayerMovement>().GetAppropiateMovementSetting());
 
         switch (currentPhase)
         {

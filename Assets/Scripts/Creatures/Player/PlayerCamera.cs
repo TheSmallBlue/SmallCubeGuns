@@ -24,7 +24,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate() 
     {
-        Vector2 input = new Vector2(PlayerInput.Instance.LookInput.x * (settings.flipX ? -1 : 1), -PlayerInput.Instance.LookInput.y * (settings.flipY ? -1 : 1));
+        Vector2 input = new Vector2(Player.Instance.GetPlayerComponent<PlayerInput>().LookInput.x * (settings.flipX ? -1 : 1), -Player.Instance.GetPlayerComponent<PlayerInput>().LookInput.y * (settings.flipY ? -1 : 1));
 
         _camera.position = transform.position;
 

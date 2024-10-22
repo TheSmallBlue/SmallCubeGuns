@@ -17,7 +17,7 @@ public class PlayerStateFalling : PlayerState
 
     #region Shortcuts & Helpers
 
-    CharacterMovement Movement => Source.Movement;
+    CharacterMovement Movement => Source.GetPlayerComponent<PlayerMovement>();
 
     bool InCoyoteTime => Time.time - lastGroundedTime < coyoteTimeLength && coyoteTimeLength >= 0;
 
@@ -50,7 +50,7 @@ public class PlayerStateFalling : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(Source.Input.GetCameraBasedForward(), Source.Movement.GetAppropiateMovementSetting());
+        Source.GetPlayerComponent<PlayerMovement>().HorizontalMovement(Source.GetPlayerComponent<PlayerInput>().GetCameraBasedForward(), Source.GetPlayerComponent<PlayerMovement>().GetAppropiateMovementSetting());
 
         if (Movement.IsGrounded)
         {

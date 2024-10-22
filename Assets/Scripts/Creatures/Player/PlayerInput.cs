@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Player))]
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour, IPlayerComponent
 {
-    public static PlayerInput Instance { get; private set;}
-
     [Header("Axis")]
     [SerializeField] InputAction MovementAction;
     [SerializeField] InputAction LookAction;
@@ -28,11 +25,6 @@ public class PlayerInput : MonoBehaviour
     public bool IsButtonUp(string buttonName) => Buttons[buttonName].WasReleasedThisFrame();
 
     public void SubscribeToButton(string buttonName, Action onButtonPressed) => Buttons[buttonName].performed += ctx => onButtonPressed();
-
-    private void Awake() 
-    {
-        Instance = this;
-    }
 
     private void Update() 
     {

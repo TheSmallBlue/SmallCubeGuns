@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerState))]
+[RequireComponent(typeof(Player))]
 public abstract class PlayerState : StateComponent<PlayerStates.StateType>
 {
     public Player Source => source;

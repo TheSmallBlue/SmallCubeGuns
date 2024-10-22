@@ -5,8 +5,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
-public class PlayerStates : MonoBehaviour
+public class PlayerStates : MonoBehaviour, IPlayerComponent
 {
     public FiniteStateMachine<StateType> FSM { get; private set; }
 
