@@ -9,7 +9,7 @@ public class PlayerEquipmentHolder : EquipmentHolder
     {
         base.Awake();
 
-        var input = GetComponent<Player>().Input;
+        var input = GetComponent<PlayerInput>();
         input.SubscribeToButton("Fire", UseObject);
         input.SubscribeToButton("Drop", Drop);
     }
