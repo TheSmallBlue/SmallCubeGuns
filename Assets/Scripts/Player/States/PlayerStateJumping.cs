@@ -36,13 +36,13 @@ public class PlayerStateJumping : PlayerState
     private void Update() 
     {
         // Jump Buffering
-        if (Input.GetKeyDown(KeyCode.Space) && !Movement.IsGrounded && lastJumpPressTime < 0)
+        if (PlayerInput.Instance.IsButtonDown("Jump") && !Movement.IsGrounded && lastJumpPressTime < 0)
             lastJumpPressTime = Time.time;
         else if(!IsJumpBuffered)
             lastJumpPressTime = -1f;
 
         // Jump check
-        if((Input.GetKeyDown(KeyCode.Space) || IsJumpBuffered) && Movement.IsGrounded)
+        if((PlayerInput.Instance.IsButtonDown("Jump") || IsJumpBuffered) && Movement.IsGrounded)
             SourceFSM.ChangeState(PlayerStates.StateType.Jumping);
 
     }

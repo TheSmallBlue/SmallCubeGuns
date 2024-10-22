@@ -24,13 +24,13 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate() 
     {
-        Vector2 input = new Vector2(Input.GetAxisRaw("LookHorizontal") * (settings.flipX ? -1 : 1), -Input.GetAxisRaw("LookVertical") * (settings.flipY ? -1 : 1));
+        Vector2 input = new Vector2(PlayerInput.Instance.LookInput.x * (settings.flipX ? -1 : 1), -PlayerInput.Instance.LookInput.y * (settings.flipY ? -1 : 1));
 
         _camera.position = transform.position;
 
         if(input.magnitude == 0) return;
         
-        _movement += input * (settings.sensitivity * 500f) * Time.deltaTime;
+        _movement += input * (settings.sensitivity * 100f) * Time.deltaTime;
         _movement.y = Mathf.Clamp(_movement.y, -89f, 89f);
 
         _camera.rotation = Quaternion.Euler(_movement.y, _movement.x, 0);

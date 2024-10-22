@@ -2,29 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
     public static PlayerInput Instance { get; private set;}
 
+    [Header("Axis")]
+    [SerializeField] InputAction MovementAction;
+    [SerializeField] InputAction LookAction;
+
+    [Header("Buttons")]
+    [SerializeField] InputActionMap Buttons;
+
+    // ---
+
     // Axis
-    public Vector2 MovementInput => new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    public Vector2 LookInput =>     new Vector2(Input.GetAxisRaw("LookHorizontal"), Input.GetAxisRaw("LookVertical"));
-    public float TiltInput =>       Input.GetAxisRaw("Tilt");
+    public Vector2 MovementInput => MovementAction.ReadValue<Vector2>();
+    public Vector2 LookInput =>     LookAction.ReadValue<Vector2>();
 
-    // Button Bools
-    public bool Sprint =>   Input.GetButton("Sprint");
-    public bool Jump =>     Input.GetButton("Jump");
-    public bool Fire =>     Input.GetButton("Fire");
-    public bool AltFire =>  Input.GetButton("AltFire");
+    // Buttons
+    public bool IsButton(string buttonName) => Buttons[buttonName].IsPressed();
+    public bool IsButtonDown(string buttonName) => Buttons[buttonName].WasPressedThisFrame();
+    public bool IsButtonUp(string buttonName) => Buttons[buttonName].WasReleasedThisFrame();
 
-    // Button Actions
-    public Action OnSprint =    delegate { };
-    public Action OnJump =      delegate { };
-    public Action OnFire =      delegate { };
-    public Action OnAltFire =   delegate { };
-
-    public Vector3 GetCameraBasedForward() => Camera.main.GetCameraBasedForward(MovementInput.x, MovementInput.y).normalized;
+    public void SubscribeToButton<T>(string buttonName, Action<T> onButtonPressed) where T : struct => Buttons[buttonName].performed += ctx => onButtonPressed(ctx.ReadValue<T>());
 
     private void Awake() 
     {
@@ -33,9 +35,11 @@ public class PlayerInput : MonoBehaviour
 
     private void Update() 
     {
-        if (Input.GetButtonDown("Sprint"))  OnSprint();
-        if (Input.GetButtonDown("Jump"))    OnJump();
-        if (Input.GetButtonDown("Fire"))    OnFire();
-        if (Input.GetButtonDown("AltFire")) OnAltFire();
+        MovementAction.Enable();
+        LookAction.Enable();
+        
+        Buttons.Enable();
     }
+
+    public Vector3 GetCameraBasedForward() => Camera.main.GetCameraBasedForward(MovementInput.x, MovementInput.y).normalized;
 }

@@ -30,7 +30,7 @@ public class PlayerMovement : CharacterMovement
     {
         if(IsGrounded)
         {
-            if(Input.GetKey(KeyCode.LeftShift)) 
+            if(PlayerInput.Instance.IsButton("Sprint")) 
                 return dashingMovement;
             else
                 return walkingMovement;
