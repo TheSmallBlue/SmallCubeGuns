@@ -143,7 +143,7 @@ public class CharacterMovement : MonoBehaviour
 
     #region Editor
 
-    private void OnDrawGizmos() 
+    private void OnDrawGizmosSelected() 
     {
         // Walls
         Gizmos.color = Color.red;

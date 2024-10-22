@@ -57,7 +57,7 @@ public class PlayerStateJumping : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), Source.Movement.GetAppropiateMovementSetting());
+        Source.Movement.HorizontalMovement(Source.Input.GetCameraBasedForward(), Source.Movement.GetAppropiateMovementSetting());
 
         switch (currentPhase)
         {

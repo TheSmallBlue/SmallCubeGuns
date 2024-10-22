@@ -8,7 +8,7 @@ public class PlayerStateGrounded : PlayerState
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(InputHelpers.GetInputForward(Camera.main, "Horizontal", "Vertical"), Source.Movement.GetAppropiateMovementSetting());
+        Source.Movement.HorizontalMovement(Source.Input.GetCameraBasedForward(), Source.Movement.GetAppropiateMovementSetting());
     }
 
     public override void OnStateUpdate()
