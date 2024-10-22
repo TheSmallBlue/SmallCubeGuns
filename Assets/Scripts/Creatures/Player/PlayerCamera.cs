@@ -33,7 +33,8 @@ public class PlayerCamera : MonoBehaviour
         _movement += input * (settings.sensitivity * 100f) * Time.deltaTime;
         _movement.y = Mathf.Clamp(_movement.y, -89f, 89f);
 
-        _camera.rotation = Quaternion.Euler(_movement.y, _movement.x, 0);
+        transform.rotation = Quaternion.Euler(_movement.y, _movement.x, 0);
+        _camera.rotation = transform.rotation;
     }
 
     [System.Serializable]

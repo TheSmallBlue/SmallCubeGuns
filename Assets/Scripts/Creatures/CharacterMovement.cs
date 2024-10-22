@@ -63,7 +63,12 @@ public class CharacterMovement : MonoBehaviour
     /// <returns></returns>
     public bool GroundedCheck(out RaycastHit hitInfo)
     {
-        return Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, 0.55f, floorLayer);
+        bool grounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, 0.55f, floorLayer);
+
+        if(!grounded) return false;
+        if(hitInfo.transform.TryGetComponent(out Equippable equippable) && equippable.Equipped) return false;
+
+        return true;
     }
 
     Vector3 stepRayLowerPos => transform.position.AddToAxis(VectorAxis.Y, stepRayHeight);

@@ -4,11 +4,21 @@ using UnityEngine;
 
 public abstract class Equippable : MonoBehaviour
 {
-    public abstract void Equip(EquipmentHolder source);
+    public bool Equipped => Source != null;
+
+    protected EquipmentHolder Source;
+
+    public virtual void Equip(EquipmentHolder source)
+    {
+        Source = source;
+    }
+
+    public virtual void UnEquip()
+    {
+        Source = null;
+    }
 
     public abstract void Use();
 
     public virtual void AltUse() { }
-    
-    public abstract void UnEquip();
 }

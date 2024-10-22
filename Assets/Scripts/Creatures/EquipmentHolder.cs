@@ -5,7 +5,13 @@ using UnityEditor;
 
 public class EquipmentHolder : MonoBehaviour
 {
+    public Transform objectHolder;
+
+    [Space]
     public Equippable HeldObject;
+
+    [Space]
+    [SerializeField] protected float throwPower;
 
     protected virtual void Awake() 
     {
