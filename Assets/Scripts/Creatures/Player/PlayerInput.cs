@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Player))]
 public class PlayerInput : MonoBehaviour
 {
     public static PlayerInput Instance { get; private set;}
@@ -26,7 +27,7 @@ public class PlayerInput : MonoBehaviour
     public bool IsButtonDown(string buttonName) => Buttons[buttonName].WasPressedThisFrame();
     public bool IsButtonUp(string buttonName) => Buttons[buttonName].WasReleasedThisFrame();
 
-    public void SubscribeToButton<T>(string buttonName, Action<T> onButtonPressed) where T : struct => Buttons[buttonName].performed += ctx => onButtonPressed(ctx.ReadValue<T>());
+    public void SubscribeToButton(string buttonName, Action onButtonPressed) => Buttons[buttonName].performed += ctx => onButtonPressed();
 
     private void Awake() 
     {

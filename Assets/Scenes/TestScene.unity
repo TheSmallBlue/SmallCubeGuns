@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 86970523}
   - component: {fileID: 86970521}
   - component: {fileID: 86970525}
+  - component: {fileID: 86970526}
   - component: {fileID: 86970519}
   - component: {fileID: 86970518}
   - component: {fileID: 86970517}
@@ -475,6 +476,14 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+    - m_Name: Drop
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 1c5abc5c-9c2a-4ccb-8957-b22d572dc7cb
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     m_Bindings:
     - m_Name: 
       m_Id: 3f6aedef-badd-4822-8b02-cf676cce9636
@@ -516,6 +525,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: AltFire
       m_Flags: 0
+    - m_Name: 
+      m_Id: 6b0d841e-11ee-44d0-97fb-161aa215c583
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Drop
+      m_Flags: 0
 --- !u!136 &86970525
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -539,6 +556,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &86970526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86970511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858204728d9e7c54dad6c5d6e22e7c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeldObject: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

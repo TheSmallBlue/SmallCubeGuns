@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerStates : MonoBehaviour
 {
     public FiniteStateMachine<StateType> FSM { get; private set; }
