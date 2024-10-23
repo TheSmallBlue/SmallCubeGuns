@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class EquipmentHolder : MonoBehaviour
 {
-    public Transform objectHolder;
+    public Transform largeObjectHolder, smallObjectHolder;
 
     [Space]
     public Equippable HeldObject;

@@ -30,7 +30,7 @@ public class EquippableRigidbody : Equippable
 
     public override void Use()
     {
-        Vector3 throwDir = Source.objectHolder.forward;
+        Vector3 throwDir = Holder.forward;
 
         Source.Drop();
         rb.AddForce(throwDir * 500);
@@ -40,6 +40,6 @@ public class EquippableRigidbody : Equippable
     {
         if (!Equipped) return;
 
-        rb.velocity = (Source.objectHolder.position - transform.position) * 10f;
+        rb.velocity = (Holder.position - transform.position) * 10f;
     }
 }

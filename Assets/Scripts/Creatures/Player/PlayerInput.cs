@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour, IPlayerComponent
     public Vector2 LookInput =>     LookAction.ReadValue<Vector2>();
 
     // Buttons
-    public bool IsButton(string buttonName) => Buttons[buttonName].IsPressed();
+    public bool IsButtonHeld(string buttonName) => Buttons[buttonName].IsPressed();
     public bool IsButtonDown(string buttonName) => Buttons[buttonName].WasPressedThisFrame();
     public bool IsButtonUp(string buttonName) => Buttons[buttonName].WasReleasedThisFrame();
 
