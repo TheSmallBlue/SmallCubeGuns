@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
-public class PlayerMovement : CharacterMovement, IPlayerComponent
+public class PlayerMovement : CreatureMovement
 {
     #region Public Variables
 

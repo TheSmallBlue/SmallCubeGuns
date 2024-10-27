@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput : MonoBehaviour, IPlayerComponent
+public class PlayerInput : MonoBehaviour
 {
     [Header("Axis")]
     [SerializeField] InputAction MovementAction;

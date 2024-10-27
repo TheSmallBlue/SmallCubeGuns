@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterMovement))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerStateFalling : PlayerState
 {
     #region Serialized Variables
@@ -17,7 +17,7 @@ public class PlayerStateFalling : PlayerState
 
     #region Shortcuts & Helpers
 
-    PlayerMovement Movement => Source.Movement;
+    PlayerMovement Movement => (PlayerMovement)Source.Movement;
 
     bool InCoyoteTime => Time.time - lastGroundedTime < coyoteTimeLength && coyoteTimeLength >= 0;
 

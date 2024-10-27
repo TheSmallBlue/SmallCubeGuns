@@ -323,7 +323,7 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   floorLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2049
   wallCheckHeight: 0.5
   wallCheckRadius: 0.4
   wallCheckLength: 0.2
@@ -620,12 +620,6 @@ MonoBehaviour:
   HeldObject: {fileID: 0}
   throwPower: 100
   pickupRaylength: 2
-  swayPosStep: 0.01
-  swayRotStep: 4
-  maxPosStepDistance: 5
-  maxRotStepDistance: 0.06
-  smoothPos: 10
-  smoothRot: 12
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,8 +3480,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1867714567}
-  - component: {fileID: 1867714569}
   - component: {fileID: 1867714568}
+  - component: {fileID: 1867714569}
   m_Layer: 11
   m_Name: Gun
   m_TagString: Untagged
@@ -3504,7 +3498,7 @@ Transform:
   m_GameObject: {fileID: 1867714566}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.49, y: 1.2, z: 0.49999997}
+  m_LocalPosition: {x: -6.31, y: 1.2, z: 0.49999997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3548,7 +3542,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867714566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa979c9959a64b47b96d0711c4e52bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bf66f3390cf2d74394962d9fbddf359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Size: 0

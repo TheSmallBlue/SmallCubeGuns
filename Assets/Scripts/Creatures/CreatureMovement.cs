@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CharacterMovement : MonoBehaviour
+public class CreatureMovement : MonoBehaviour
 {
     #region Public Variables
 
@@ -66,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
         bool grounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, 0.55f, floorLayer);
 
         if(!grounded) return false;
-        if(hitInfo.transform.TryGetComponent(out Equippable equippable) && equippable.Equipped) return false;
+        if(hitInfo.transform.root.TryGetComponent(out Equippable equippable) && equippable.Equipped) return false;
 
         return true;
     }

@@ -3,17 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput))]
-public class PlayerEquipmentHolder : EquipmentHolder, IPlayerComponent
+public class PlayerEquipmentHolder : EquipmentHolder
 {
     [SerializeField] float pickupRaylength = 2f;
-
-    [Header("Weapon visuals")]
-    [SerializeField] float swayPosStep = 0.01f;
-    [SerializeField] float swayRotStep = 4f;
-    [SerializeField] float maxPosStepDistance = 5f;
-    [SerializeField] float maxRotStepDistance = 0.06f;
-    [SerializeField] float smoothPos = 10f;
-    [SerializeField] float smoothRot = 12f;
 
     PlayerInput input;
 
@@ -55,6 +47,8 @@ public class PlayerEquipmentHolder : EquipmentHolder, IPlayerComponent
 
     public override void Drop()
     {
+        if (HeldObject == null) return;
+
         foreach (var renderer in HeldObject.GetComponentsInChildren<Renderer>())
         {
             renderer.gameObject.layer = 11;
@@ -65,30 +59,16 @@ public class PlayerEquipmentHolder : EquipmentHolder, IPlayerComponent
 
     private void Update() 
     {
-        if(!HeldObject) return;
+        if (HeldObject == null) return;
 
-        if(input.IsButtonHeld("Fire"))
+        if(input.IsButtonDown("Fire"))
         {
-            UseObject();
+            HeldObject.Use();
         }
 
-        if(HeldObject.Size == ObjectSize.Small)
+        if (input.IsButtonDown("AltFire"))
         {
-            // Weapon Sway
-            Vector3 invertLook = input.LookInput * -swayPosStep;
-            invertLook.x = Mathf.Clamp(invertLook.x, -maxPosStepDistance, maxPosStepDistance);
-            invertLook.y = Mathf.Clamp(invertLook.y, -maxPosStepDistance, maxPosStepDistance);
-
-            var swayPos = invertLook;
-
-            invertLook = input.LookInput * -swayRotStep;
-            invertLook.x = Mathf.Clamp(invertLook.x, -maxRotStepDistance, maxRotStepDistance);
-            invertLook.y = Mathf.Clamp(invertLook.y, -maxRotStepDistance, maxRotStepDistance);
-
-            var swayRotEuler = Quaternion.Euler(new Vector3(invertLook.y, invertLook.x, invertLook.x));
-
-            HeldObject.transform.localPosition = Vector3.Lerp(HeldObject.transform.localPosition, swayPos, Time.deltaTime * smoothPos);
-            HeldObject.transform.localRotation = Quaternion.Slerp(HeldObject.transform.localRotation, swayRotEuler, Time.deltaTime * smoothRot);
+            HeldObject.AltUse();
         }
     }
 }

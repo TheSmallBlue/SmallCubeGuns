@@ -3,25 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Weapon : Equippable
+public abstract class Weapon : Equippable
 {
+    protected Rigidbody RB => this.GetComponentIfVarNull(ref rb);
     Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    public override void Use()
-    {
-        Debug.Log("Fire");
-    }
 
     public override void Equip(EquipmentHolder source)
     {
         base.Equip(source);
 
-        rb.isKinematic = true;
+        RB.isKinematic = true;
+
         foreach (var collider in GetComponentsInChildren<Collider>())
         {
             collider.enabled = false;
@@ -36,7 +28,10 @@ public class Weapon : Equippable
     {
         base.UnEquip();
 
-        rb.isKinematic = false;
+        transform.parent = null;
+
+        RB.isKinematic = false;
+
         foreach (var collider in GetComponentsInChildren<Collider>())
         {
             collider.enabled = true;

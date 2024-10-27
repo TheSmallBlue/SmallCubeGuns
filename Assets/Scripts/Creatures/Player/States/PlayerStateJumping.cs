@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterMovement))]
+[RequireComponent(typeof(PlayerMovement)), RequireComponent(typeof(PlayerInput))]
 public class PlayerStateJumping : PlayerState
 {
     #region Serialized Variables
@@ -18,8 +18,9 @@ public class PlayerStateJumping : PlayerState
 
     #region Shortcuts & Helpers
 
-    PlayerMovement Movement => Source.Movement;
-    Rigidbody RB => Movement.RB;
+    PlayerMovement movement => (PlayerMovement)Source.Movement;
+    PlayerInput input => Source.Input;
+    Rigidbody rb => movement.RB;
 
     bool IsJumpBuffered => Time.time - lastJumpPressTime < jumpBufferTimeLength;
 
@@ -36,13 +37,13 @@ public class PlayerStateJumping : PlayerState
     private void Update() 
     {
         // Jump Buffering
-        if (Source.Input.IsButtonDown("Jump") && !Movement.IsGrounded && lastJumpPressTime < 0)
+        if (input.IsButtonDown("Jump") && !movement.IsGrounded && lastJumpPressTime < 0)
             lastJumpPressTime = Time.time;
         else if(!IsJumpBuffered)
             lastJumpPressTime = -1f;
 
         // Jump check
-        if((Source.Input.IsButtonDown("Jump") || IsJumpBuffered) && Movement.IsGrounded)
+        if((input.IsButtonDown("Jump") || IsJumpBuffered) && movement.IsGrounded)
             SourceFSM.ChangeState(PlayerStates.StateType.Jumping);
 
     }
@@ -50,14 +51,14 @@ public class PlayerStateJumping : PlayerState
     public override void OnStateEnter(State<PlayerStates.StateType> previousState)
     {
         currentPhase = JumpPhases.Jump;
-        RB.velocity = RB.velocity.CollapseAxis(VectorAxis.Y);
+        rb.velocity = rb.velocity.CollapseAxis(VectorAxis.Y);
 
-        RB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     public override void OnStateFixedUpdate()
     {
-        Source.Movement.HorizontalMovement(Source.Input.GetCameraBasedForward(), Source.Movement.GetAppropiateMovementSetting());
+        movement.HorizontalMovement(input.GetCameraBasedForward(), movement.GetAppropiateMovementSetting());
 
         switch (currentPhase)
         {
@@ -81,7 +82,7 @@ public class PlayerStateJumping : PlayerState
             return;
         }
 
-        if(RB.velocity.y < startHoverThreshold)
+        if(rb.velocity.y < startHoverThreshold)
         {
             currentPhase = JumpPhases.Hover;
             return;
@@ -90,7 +91,7 @@ public class PlayerStateJumping : PlayerState
 
     void MiddlePhase()
     {
-        Movement.GravityMultiplier = hoverGravityMultiplier;
+        movement.GravityMultiplier = hoverGravityMultiplier;
 
         if (!Input.GetKey(KeyCode.Space))
         {
@@ -98,7 +99,7 @@ public class PlayerStateJumping : PlayerState
             return;
         }
 
-        if(RB.velocity.y < endHoverThreshold)
+        if(rb.velocity.y < endHoverThreshold)
         {
             currentPhase = JumpPhases.Fall;
             return;
@@ -112,7 +113,7 @@ public class PlayerStateJumping : PlayerState
 
     public override void OnStateExit(PlayerStates.StateType nextState)
     {
-        Movement.GravityMultiplier = 1;
+        movement.GravityMultiplier = 1;
     }
 
     enum JumpPhases

@@ -12,7 +12,7 @@ public static class ComponentExtensionMethods
     /// <param name="source"> The source gameobject. </param>
     /// <param name="componentVar"> The variable that will contain the component. </param>
     /// <returns> The value held in the variable componentVar </returns>
-    public static T GetComponentIfVarNull<T>(this MonoBehaviour source, ref T var) where T : MonoBehaviour
+    public static T GetComponentIfVarNull<T>(this MonoBehaviour source, ref T var) where T : Component
     {
         if(var == null) var = source.GetComponent<T>();
 
