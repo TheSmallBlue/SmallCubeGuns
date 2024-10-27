@@ -8,18 +8,22 @@ public class Player : MonoBehaviour
 {
     public static Player Instance;
 
-    public PlayerInput Input { get; private set; }
-    public PlayerMovement Movement { get; private set; }
-    public PlayerEquipmentHolder Equipment { get; private set; }
-    public PlayerStates States { get; private set; }
+    // ---
+    
+    public PlayerInput Input => this.GetComponentIfVarNull(ref input);
+    PlayerInput input;
+
+    public PlayerMovement Movement => this.GetComponentIfVarNull(ref movement);
+    PlayerMovement movement;
+
+    public PlayerEquipmentHolder Equipment => this.GetComponentIfVarNull(ref equipment);
+    PlayerEquipmentHolder equipment;
+
+    public PlayerStates States => this.GetComponentIfVarNull(ref states);
+    PlayerStates states;
 
     private void Awake() 
     {
         Instance = this;
-
-        Input = GetComponent<PlayerInput>();
-        Movement = GetComponent<PlayerMovement>();
-        Equipment = GetComponent<PlayerEquipmentHolder>();
-        States = GetComponent<PlayerStates>();
     }
 }

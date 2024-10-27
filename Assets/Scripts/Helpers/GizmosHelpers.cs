@@ -4,6 +4,12 @@ using UnityEngine;
 
 public static class GizmosHelpers
 {
+    /// <summary>
+    /// Draws a gizmo capsule
+    /// </summary>
+    /// <param name="point1"> Top point </param>
+    /// <param name="point2"> Bottom Point </param>
+    /// <param name="radius"> Capsule raidius </param>
     public static void DrawWireCapsule(Vector3 point1, Vector3 point2, float radius)
     {
         // Spheres
