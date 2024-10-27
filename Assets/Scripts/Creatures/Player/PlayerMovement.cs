@@ -38,7 +38,7 @@ public class PlayerMovement : CharacterMovement, IPlayerComponent
     {
         if(IsGrounded)
         {
-            if(player.GetPlayerComponent<PlayerInput>().IsButtonHeld("Sprint")) 
+            if(player.Input.IsButtonHeld("Sprint")) 
                 return dashingMovement;
             else
                 return walkingMovement;
