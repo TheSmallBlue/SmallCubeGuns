@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An equippable object that has a different holding position than a base equippable.
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Weapon : Equippable
 {
@@ -37,4 +40,18 @@ public abstract class Weapon : Equippable
             collider.enabled = true;
         }
     }
+
+    public override void Use(Vector3 direction)
+    {
+        Fire(direction);
+    }
+
+    public override void AltUse(Vector3 direction)
+    {
+        AltFire(direction);
+    }
+
+    protected abstract void Fire(Vector3 direction);
+
+    protected virtual void AltFire(Vector3 direction) { }
 }

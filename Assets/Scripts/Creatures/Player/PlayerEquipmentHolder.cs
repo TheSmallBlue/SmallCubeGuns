@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerEquipmentHolder : EquipmentHolder
 {
-    [SerializeField] float pickupRaylength = 2f;
-
     PlayerInput input;
 
     protected override void Awake()
@@ -15,22 +13,8 @@ public class PlayerEquipmentHolder : EquipmentHolder
 
         input = GetComponent<PlayerInput>();
         input.SubscribeToButton("Drop", Drop);
-        input.SubscribeToButton("Use", GetEquippable);
     }
 
-    void GetEquippable()
-    {
-        if (HeldObject && HeldObject.Size == ObjectSize.Large) Drop();
-        if (!Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, pickupRaylength)) return;
-        if (!hit.transform.root.TryGetComponent(out Equippable equippable)) return;
-
-        if (HeldObject) 
-        { 
-            Drop(); 
-        }
-
-        PickUp(equippable);
-    }
 
     public override void PickUp(Equippable pickup)
     {
@@ -63,12 +47,12 @@ public class PlayerEquipmentHolder : EquipmentHolder
 
         if(input.IsButtonDown("Fire"))
         {
-            HeldObject.Use();
+            HeldObject.Use(Camera.main.transform.forward);
         }
 
         if (input.IsButtonDown("AltFire"))
         {
-            HeldObject.AltUse();
+            HeldObject.AltUse(Camera.main.transform.forward);
         }
     }
 }

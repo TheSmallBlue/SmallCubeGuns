@@ -34,17 +34,17 @@ public class EquipmentHolder : MonoBehaviour
         HeldObject = null;
     }
 
-    public virtual void UseObject()
+    public virtual void UseObject(Vector3 direction)
     {
         if (HeldObject == null) return;
 
-        HeldObject.Use();
+        HeldObject.Use(direction);
     }
 
-    public virtual void AltUseObject()
+    public virtual void AltUseObject(Vector3 direction)
     {
         if (HeldObject == null) return;
 
-        HeldObject.AltUse();
+        HeldObject.AltUse(direction);
     }
 }

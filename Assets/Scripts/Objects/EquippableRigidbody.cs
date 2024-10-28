@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A type of Rigidbody that an EquipmentHolder can pick up.
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class EquippableRigidbody : Equippable
 {
@@ -28,9 +31,9 @@ public class EquippableRigidbody : Equippable
         rb.useGravity = true;
     }
 
-    public override void Use()
+    public override void Use(Vector3 direction)
     {
-        Vector3 throwDir = Holder.forward;
+        Vector3 throwDir = direction;
 
         Source.Drop();
         rb.AddForce(throwDir * 500);

@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Equippable : MonoBehaviour
+/// <summary>
+/// A class that defines something can be equipped / picked up.
+/// </summary>
+public abstract class Equippable : MonoBehaviour, IPlayerInteractable
 {
     public ObjectSize Size;
     
@@ -21,9 +24,14 @@ public abstract class Equippable : MonoBehaviour
         Source = null;
     }
 
-    public abstract void Use();
+    public void Interact(Player source)
+    {
+        source.Equipment.PickUp(this);
+    }
 
-    public virtual void AltUse() { }
+    public abstract void Use(Vector3 direction);
+
+    public virtual void AltUse(Vector3 direction) { }
 }
 
 public enum ObjectSize
