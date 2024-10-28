@@ -12,6 +12,11 @@ public abstract class Fireable : MonoBehaviour
 
     Queue<IDamageEvent> damageEvents;
 
+    public void AddEvent(IDamageEvent newEvent)
+    {
+        damageEvents.Enqueue(newEvent);
+    }
+
     // This method is not meant to be overriden, instead it serves as a manager for the methods that can!
     // It must also be called by the class that inherits this.
     public void Damage(Health target)
