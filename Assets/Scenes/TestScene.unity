@@ -1246,11 +1246,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 858729410}
+  - component: {fileID: 858729415}
   - component: {fileID: 858729414}
   - component: {fileID: 858729412}
   - component: {fileID: 858729411}
   - component: {fileID: 858729409}
   - component: {fileID: 858729413}
+  - component: {fileID: 858729416}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -1379,6 +1381,30 @@ MonoBehaviour:
   stepRayUpperLength: 0.6
   stepHeight: 0.3
   stepSmooth: 0.1
+--- !u!114 &858729415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858729408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5984913eee3c0fe4595837580f3c8c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &858729416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858729408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0790cc835a2a744f946d7bb06288353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &867114424
 GameObject:
   m_ObjectHideFlags: 0
