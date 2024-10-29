@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CubeGuns.FSM;
 
 [RequireComponent(typeof(Player))]
 public abstract class PlayerState : StateComponent<PlayerStates.StateType>

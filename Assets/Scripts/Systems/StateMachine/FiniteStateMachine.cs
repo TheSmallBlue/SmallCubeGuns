@@ -3,74 +3,77 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class FiniteStateMachine<T>
+namespace CubeGuns.FSM
 {
-    public State<T> Current => current;
-    State<T> current;
-
-    Dictionary<T, State<T>> acceptAllTransitions = new();
-
-    public FiniteStateMachine(State<T> initial)
+    public class FiniteStateMachine<T>
     {
-        current = initial;
-        current.Enter(default);
-    }
+        public State<T> Current => current;
+        State<T> current;
 
-    public FiniteStateMachine(StateComponent<T> initial)
-    {
-        var statesInGameObject = initial.GetComponents<StateComponent<T>>();
+        Dictionary<T, State<T>> acceptAllTransitions = new();
 
-        // Create all states
-        foreach (var stateComponent in statesInGameObject)
+        public FiniteStateMachine(State<T> initial)
         {
-            stateComponent.BuildState(this);
+            current = initial;
+            current.Enter(default);
         }
 
-        // Now that the states are created, create their transitions
-        foreach (var stateComponent in statesInGameObject)
+        public FiniteStateMachine(StateComponent<T> initial)
         {
-            stateComponent.BuildTransitions();
+            var statesInGameObject = initial.GetComponents<StateComponent<T>>();
+
+            // Create all states
+            foreach (var stateComponent in statesInGameObject)
+            {
+                stateComponent.BuildState(this);
+            }
+
+            // Now that the states are created, create their transitions
+            foreach (var stateComponent in statesInGameObject)
+            {
+                stateComponent.BuildTransitions();
+            }
+
+            current = initial.State;
+            current.Enter(default);
         }
 
-        current = initial.State;
-        current.Enter(default);
-    }
-
-    public bool ChangeState(T desiredState)
-    {
-        if(current.TryToTransitionTo(desiredState, acceptAllTransitions, out State<T> nextState))
+        public bool ChangeState(T desiredState)
         {
-            current.Exit(desiredState);
-            var last = current;
-            current = nextState;
-            current.Enter(last);
+            if (current.TryToTransitionTo(desiredState, acceptAllTransitions, out State<T> nextState))
+            {
+                current.Exit(desiredState);
+                var last = current;
+                current = nextState;
+                current.Enter(last);
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
 
-        return false;
-    }
+        public State<T> AcceptAnyTransitionsTo(T input, State<T> target)
+        {
+            acceptAllTransitions.Add(input, target);
+            return target;
+        }
 
-    public State<T> AcceptAnyTransitionsTo(T input, State<T> target)
-    {
-        acceptAllTransitions.Add(input, target);
-        return target;
-    }
+        public State<T> AcceptAnyTransitionsTo(T input, StateComponent<T> targetComponent)
+        {
+            var target = targetComponent.State;
+            acceptAllTransitions.Add(input, target);
+            return target;
+        }
 
-    public State<T> AcceptAnyTransitionsTo(T input, StateComponent<T> targetComponent)
-    {
-        var target = targetComponent.State;
-        acceptAllTransitions.Add(input, target);
-        return target;
-    }
+        public void Update()
+        {
+            current.Update();
+        }
 
-    public void Update()
-    {
-        current.Update();
-    }
-
-    public void FixedUpdate()
-    {
-        current.FixedUpdate();
+        public void FixedUpdate()
+        {
+            current.FixedUpdate();
+        }
     }
 }
