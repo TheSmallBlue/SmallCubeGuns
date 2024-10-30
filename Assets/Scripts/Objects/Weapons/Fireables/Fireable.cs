@@ -10,7 +10,7 @@ public abstract class Fireable : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected int passthroughAmount;
 
-    Queue<IDamageEvent> damageEvents;
+    Queue<IDamageEvent> damageEvents = new();
 
     public void AddEvent(IDamageEvent newEvent)
     {

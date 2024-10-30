@@ -8,27 +8,23 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class EquippableRigidbody : Equippable
 {
+    public Rigidbody RB => this.GetComponentIfVarNull(ref rb);
     Rigidbody rb;
-
-    private void Awake() 
-    {
-        rb = GetComponent<Rigidbody>();
-    }
 
     public override void Equip(EquipmentHolder source)
     {
         base.Equip(source);
 
-        rb.excludeLayers = 1 << Source.gameObject.layer;
-        rb.useGravity = false;
+        RB.excludeLayers = 1 << Source.gameObject.layer;
+        RB.useGravity = false;
     }
 
     public override void UnEquip()
     {
         base.UnEquip();
 
-        rb.excludeLayers = 0;
-        rb.useGravity = true;
+        RB.excludeLayers = 0;
+        RB.useGravity = true;
     }
 
     public override void Use(Vector3 direction)
@@ -36,13 +32,13 @@ public class EquippableRigidbody : Equippable
         Vector3 throwDir = direction;
 
         Source.Drop();
-        rb.AddForce(throwDir * 500);
+        RB.AddForce(throwDir * 500);
     }
 
     private void FixedUpdate() 
     {
         if (!Equipped) return;
 
-        rb.velocity = (Holder.position - transform.position) * 10f;
+        RB.velocity = (Holder.position - transform.position) * 10f;
     }
 }

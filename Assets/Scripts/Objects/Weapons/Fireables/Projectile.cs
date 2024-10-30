@@ -11,7 +11,7 @@ public class Projectile : Fireable
     protected Rigidbody RB => this.GetComponentIfVarNull(ref rb);
     Rigidbody rb;
 
-    [SerializeField] float speed;
+    [SerializeField] float speed, lifeLength = 5f;
 
     Vector3 direction;
 
@@ -24,16 +24,20 @@ public class Projectile : Fireable
     private void FixedUpdate() 
     {
         RB.velocity = direction * speed;
+
+        lifeLength -= Time.fixedDeltaTime;
+
+        if(lifeLength <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other) 
     {
-        if(!other.transform.root.TryGetComponent(out Health health))
-        {
-            OnHit();
-            return;
-        }
-
-        Damage(health);
+        if(other.transform.root.TryGetComponent(out Health health))
+            Damage(health);
+        
+        OnHit();
     }
 }

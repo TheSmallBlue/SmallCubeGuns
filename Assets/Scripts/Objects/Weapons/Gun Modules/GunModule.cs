@@ -6,15 +6,15 @@ using UnityEngine;
 /// A component for a ModularGun.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-public abstract class GunModule : MonoBehaviour, IPlayerInteractable
+public abstract class GunModule : EquippableRigidbody
 {
-    public Rigidbody RB => this.GetComponentIfVarNull(ref rb);
-    Rigidbody rb;
-
-    public void Interact(Player source)
+    public override void Interact(Player source)
     {
-        if(source.Equipment.HeldObject is not ModularGunBase modularGun) return;
-        if(!modularGun.AddModule(this)) return;
+        if(source.Equipment.HeldObject is not ModularGunBase modularGun || !modularGun.AddModule(this))
+        {
+            base.Interact(source);
+            return;
+        }
 
         foreach (var renderer in GetComponentsInChildren<Renderer>())
         {

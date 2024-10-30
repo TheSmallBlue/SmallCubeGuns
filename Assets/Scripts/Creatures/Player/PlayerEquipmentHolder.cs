@@ -20,7 +20,7 @@ public class PlayerEquipmentHolder : EquipmentHolder
     {
         base.PickUp(pickup);
 
-        if (pickup.Size == ObjectSize.Small)
+        if (pickup.Size == ObjectType.Holdable)
         {
             foreach (var renderer in pickup.GetComponentsInChildren<Renderer>())
             {

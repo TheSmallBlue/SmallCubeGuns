@@ -11,7 +11,7 @@ public class ConstructorGunModule : GunModule
 
     public override Fireable Apply(Fireable fireable)
     {
-        if(fireable != null) Destroy(fireable);
+        if(fireable != null) Destroy(fireable.gameObject);
 
         // TODO: Use factory to instantiate objects instead for less frame drops.
         return Instantiate(fireableToConstruct);

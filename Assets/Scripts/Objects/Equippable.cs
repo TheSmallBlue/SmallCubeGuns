@@ -7,10 +7,10 @@ using UnityEngine;
 /// </summary>
 public abstract class Equippable : MonoBehaviour, IPlayerInteractable
 {
-    public ObjectSize Size;
+    public ObjectType Size;
     
     public bool Equipped => Source != null;
-    public Transform Holder => Size == ObjectSize.Small ? Source.smallObjectHolder : Source.largeObjectHolder;
+    public Transform Holder => Size == ObjectType.Holdable ? Source.smallObjectHolder : Source.largeObjectHolder;
 
     protected EquipmentHolder Source;
 
@@ -24,7 +24,7 @@ public abstract class Equippable : MonoBehaviour, IPlayerInteractable
         Source = null;
     }
 
-    public void Interact(Player source)
+    public virtual void Interact(Player source)
     {
         source.Equipment.PickUp(this);
     }
@@ -34,8 +34,8 @@ public abstract class Equippable : MonoBehaviour, IPlayerInteractable
     public virtual void AltUse(Vector3 direction) { }
 }
 
-public enum ObjectSize
+public enum ObjectType
 {
-    Small,
-    Large
+    Grabbable,
+    Holdable
 }
