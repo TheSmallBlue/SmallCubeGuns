@@ -17,7 +17,7 @@ public abstract class Weapon : Equippable
 
         RB.isKinematic = true;
 
-        foreach (var collider in GetComponentsInChildren<Collider>())
+        foreach (var collider in GetComponents<Collider>())
         {
             collider.enabled = false;
         }
@@ -35,7 +35,7 @@ public abstract class Weapon : Equippable
 
         RB.isKinematic = false;
 
-        foreach (var collider in GetComponentsInChildren<Collider>())
+        foreach (var collider in GetComponents<Collider>())
         {
             collider.enabled = true;
         }

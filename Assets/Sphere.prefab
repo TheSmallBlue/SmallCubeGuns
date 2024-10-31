@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 709249247243034185}
   - component: {fileID: 3021976874472441331}
   - component: {fileID: 5295301739300643475}
-  - component: {fileID: 606618042083589402}
   - component: {fileID: 1390511741313972467}
+  - component: {fileID: 606618042083589402}
   - component: {fileID: 5187102952329571109}
   m_Layer: 0
   m_Name: Sphere
@@ -86,6 +86,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1390511741313972467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255832033621821578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33eec6cfe46f36499968893ca1abe9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  passthroughAmount: 0
+  speed: 5
+  lifeLength: 5
 --- !u!135 &606618042083589402
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -107,22 +123,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1390511741313972467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4255832033621821578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d33eec6cfe46f36499968893ca1abe9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  passthroughAmount: 0
-  speed: 5
-  lifeLength: 5
 --- !u!54 &5187102952329571109
 Rigidbody:
   m_ObjectHideFlags: 0

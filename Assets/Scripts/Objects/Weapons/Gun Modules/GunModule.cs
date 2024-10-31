@@ -5,7 +5,6 @@ using UnityEngine;
 /// <summary>
 /// A component for a ModularGun.
 /// </summary>
-[RequireComponent(typeof(Rigidbody))]
 public abstract class GunModule : EquippableRigidbody
 {
     public override void Interact(Player source)
@@ -19,6 +18,11 @@ public abstract class GunModule : EquippableRigidbody
         foreach (var renderer in GetComponentsInChildren<Renderer>())
         {
             renderer.gameObject.layer = 20;
+        }
+
+        foreach (var collider in GetComponents<Collider>())
+        {
+            collider.enabled = false;
         }
 
         RB.isKinematic = true;

@@ -40,5 +40,5 @@ public abstract class Fireable : MonoBehaviour
         }
     }
 
-    public abstract void Create(Vector3 position, Vector3 direction);
+    public abstract void Create(EquipmentHolder source, Vector3 position, Vector3 direction);
 }

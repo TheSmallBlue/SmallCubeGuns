@@ -13,12 +13,16 @@ public class Projectile : Fireable
 
     [SerializeField] float speed, lifeLength = 5f;
 
+    Transform sourceRoot;
+
     Vector3 direction;
 
-    public override void Create(Vector3 position, Vector3 direction)
+    public override void Create(EquipmentHolder source, Vector3 position, Vector3 direction)
     {
         transform.position = position;
         this.direction = direction;
+
+        sourceRoot = source.transform.root;
     }
 
     private void FixedUpdate() 
@@ -35,6 +39,7 @@ public class Projectile : Fireable
 
     private void OnTriggerEnter(Collider other) 
     {
+        if(other.transform.root == sourceRoot) return;
         if(other.transform.root.TryGetComponent(out Health health))
             Damage(health);
         

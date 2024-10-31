@@ -15,6 +15,10 @@ public class ModularGunBase : Weapon
     [Header("Visual settings")]
     [SerializeField] Transform modulesParent;
 
+    [Header("Editor Settings")]
+    [SerializeField] Mesh previewModuleMesh;
+    [SerializeField] float previewModuleSize = 1;
+
     public bool AddModule(GunModule module)
     {
         if(modules.Count >= maxModuleAmount) return false;
@@ -44,7 +48,7 @@ public class ModularGunBase : Weapon
             result = item.Apply(result);
         }
 
-        result.Create(modules[modules.Count - 1].transform.position + modules[modules.Count - 1].transform.forward * 0.1f, direction);
+        result.Create(Source, modules[modules.Count - 1].transform.position + modules[modules.Count - 1].transform.forward * 0.1f, direction);
     }
 
     private void OnDrawGizmos() 
@@ -53,7 +57,11 @@ public class ModularGunBase : Weapon
 
         for (int i = 0; i < maxModuleAmount; i++)
         {
-            Gizmos.DrawWireCube(modulesParent.transform.position + modulesParent.forward * 0.1f * i, Vector3.one * 0.1f);
+            float spacing = previewModuleSize * 0.2f;
+            if(previewModuleMesh == null)
+                Gizmos.DrawWireCube(modulesParent.transform.position + modulesParent.forward * spacing * i, Vector3.one * previewModuleSize);
+            else
+                Gizmos.DrawWireMesh(previewModuleMesh, 0, modulesParent.transform.position + modulesParent.forward * spacing * i, modulesParent.rotation, Vector3.one * previewModuleSize);
         }
     }
 }
