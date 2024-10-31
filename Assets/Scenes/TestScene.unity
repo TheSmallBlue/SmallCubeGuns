@@ -727,9 +727,9 @@ MonoBehaviour:
   maxModuleAmount: 4
   modules: []
   modulesParent: {fileID: 588858143}
+  moduleSize: 1
   previewModuleMesh: {fileID: -3960361486558093370, guid: 964aa8bb779c48c4999f2c9c287429bc,
     type: 3}
-  previewModuleSize: 1
 --- !u!65 &98850479
 BoxCollider:
   m_ObjectHideFlags: 0

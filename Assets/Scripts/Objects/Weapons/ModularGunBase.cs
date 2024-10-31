@@ -14,10 +14,10 @@ public class ModularGunBase : Weapon
 
     [Header("Visual settings")]
     [SerializeField] Transform modulesParent;
+    [SerializeField] float moduleSize = 1;
 
     [Header("Editor Settings")]
     [SerializeField] Mesh previewModuleMesh;
-    [SerializeField] float previewModuleSize = 1;
 
     public bool AddModule(GunModule module)
     {
@@ -26,7 +26,7 @@ public class ModularGunBase : Weapon
 
         module.transform.parent = modulesParent;
         module.transform.localRotation = Quaternion.identity;
-        module.transform.localPosition = Vector3.forward * module.transform.localScale.x * modules.Count;
+        module.transform.localPosition = Vector3.forward * moduleSize * 0.2f * modules.Count;
 
         modules.Add(module);
 
@@ -57,11 +57,11 @@ public class ModularGunBase : Weapon
 
         for (int i = 0; i < maxModuleAmount; i++)
         {
-            float spacing = previewModuleSize * 0.2f;
+            float spacing = moduleSize * 0.2f;
             if(previewModuleMesh == null)
-                Gizmos.DrawWireCube(modulesParent.transform.position + modulesParent.forward * spacing * i, Vector3.one * previewModuleSize);
+                Gizmos.DrawWireCube(modulesParent.transform.position + modulesParent.forward * spacing * i, Vector3.one * moduleSize);
             else
-                Gizmos.DrawWireMesh(previewModuleMesh, 0, modulesParent.transform.position + modulesParent.forward * spacing * i, modulesParent.rotation, Vector3.one * previewModuleSize);
+                Gizmos.DrawWireMesh(previewModuleMesh, 0, modulesParent.transform.position + modulesParent.forward * spacing * i, modulesParent.rotation, Vector3.one * moduleSize);
         }
     }
 }
