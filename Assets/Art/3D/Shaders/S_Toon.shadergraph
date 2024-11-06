@@ -11,6 +11,9 @@
         },
         {
             "m_Id": "e0214f16b5ec4badac9f0ea92f06624a"
+        },
+        {
+            "m_Id": "34da03e4a004474bbd206aae2dd40fbe"
         }
     ],
     "m_Keywords": [],
@@ -333,10 +336,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -947.0,
-            "y": 112.99996948242188,
+            "x": -1598.0001220703125,
+            "y": 120.00000762939453,
             "width": 150.0,
-            "height": 34.000030517578128
+            "height": 33.999977111816409
         }
     },
     "m_Slots": [
@@ -388,6 +391,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "34da03e4a004474bbd206aae2dd40fbe",
+    "m_Guid": {
+        "m_GuidSerialized": "72dca3ef-3a42-4339-bfe8-8a45c30f76a7"
+    },
+    "m_Name": "NormalTexture",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "NormalTexture",
+    "m_DefaultReferenceName": "_NormalTexture",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SamplerStateMaterialSlot",
     "m_ObjectId": "3ca413da80cd473e8c4147761e6a0a15",
@@ -426,6 +457,9 @@
     "m_ChildObjectList": [
         {
             "m_Id": "fe2009cb17d0481ab6e18eed401b163c"
+        },
+        {
+            "m_Id": "34da03e4a004474bbd206aae2dd40fbe"
         },
         {
             "m_Id": "090a6fdb28fc401aa7cd307aa7e5366f"
@@ -570,6 +604,9 @@
             "m_Id": "6025b828f6ab4a47a489112ffdcb3ef9"
         },
         {
+            "m_Id": "89a166fe29a7434e874305d4090a4eb0"
+        },
+        {
             "m_Id": "94d9b7c3d5a64f81b36be49a58f2e025"
         }
     ],
@@ -585,12 +622,14 @@
     "m_PropertyGuids": [
         "0c50fc39-105a-4e3b-bf8d-8dee80c8dc62",
         "154237fb-2fca-49e6-ada4-d1e1f027baee",
-        "aed4be88-b7e3-46ec-afb8-1880e070faa5"
+        "aed4be88-b7e3-46ec-afb8-1880e070faa5",
+        "a457d34f-7b20-40f0-bdf3-fb8fe5b08ffb"
     ],
     "m_PropertyIds": [
         -835016356,
         1406114668,
-        -841301724
+        -841301724,
+        -1865159881
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -816,6 +855,29 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "89a166fe29a7434e874305d4090a4eb0",
+    "m_Id": -1865159881,
+    "m_DisplayName": "Normals",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Normals",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
 }
 
 {
