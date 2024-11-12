@@ -35,11 +35,18 @@ public class PlayerVisuals : MonoBehaviour
         // Weapon
         armsAnimator.SetBool("WeaponHeld", equipment.HeldObject && equipment.HeldObject.Size == ObjectType.Holdable);
 
+        // Aiming
+        armsAnimator.SetBool("Aiming", input.IsButtonHeld("AltFire"));
 
         // Swing
         var lookinput = input.LookInput.normalized;
         gunSwing = Vector2.SmoothDamp(gunSwing, lookinput, ref gunSwingVelocity, gunSwingTime);
         armsAnimator.SetFloat("SwingVelocityX", gunSwing.x);
         armsAnimator.SetFloat("SwingVelocityY", gunSwing.y);
+    }
+
+    public void OnInteract()
+    {
+        armsAnimator.SetTrigger("Interact");
     }
 }

@@ -22,6 +22,8 @@ public class PlayerInteraction : MonoBehaviour
         if (!Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, pickupRaylength)) return;
         if (!hit.transform.root.TryGetComponent(out IPlayerInteractable interactable)) return;
 
+        gameObject.RunEvent<PlayerVisuals>( x => x.OnInteract() );
+
         interactable.Interact(Player);
     }
 }

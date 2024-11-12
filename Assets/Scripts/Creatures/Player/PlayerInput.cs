@@ -34,5 +34,5 @@ public class PlayerInput : MonoBehaviour
         Buttons.Enable();
     }
 
-    public Vector3 GetCameraBasedForward() => Camera.main.GetCameraBasedForward(MovementInput.x, MovementInput.y).normalized;
+    public Vector3 GetCameraBasedForward() => Camera.main.GetCameraBasedForward(MovementInput.x, MovementInput.y, true).normalized;
 }
