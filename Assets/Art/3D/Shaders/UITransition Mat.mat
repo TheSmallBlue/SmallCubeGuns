@@ -55,7 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Animprogress: 0
+    - _Animprogress: 1
     m_Colors:
     - _WindowPosition: {r: 0, g: 0.15, b: 0, a: 0}
     - _WindowSize: {r: 0.5, g: 0.1, b: 0, a: 0}

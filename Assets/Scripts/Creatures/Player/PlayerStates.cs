@@ -9,10 +9,16 @@ public class PlayerStates : MonoBehaviour
     public FiniteStateMachine<StateType> FSM { get; private set; }
 
     [SerializeField] PlayerState initialState;
+    [SerializeField] StateComponent<StateType>.StateComponentTransition[] transitionAtAnyTime;
 
     private void Awake() 
     {
         FSM = new FiniteStateMachine<StateType>(initialState);
+
+        foreach (var state in transitionAtAnyTime)
+        {
+            FSM.AcceptAnyTransitionsTo(state.Input, state.State);
+        }
     }
 
     public void ChangeState(StateType stateType)
@@ -39,6 +45,7 @@ public class PlayerStates : MonoBehaviour
     {
         Grounded,
         Jumping,
-        Falling
+        Falling,
+        Climbing
     }
 }

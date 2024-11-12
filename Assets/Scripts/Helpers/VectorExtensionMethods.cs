@@ -54,6 +54,19 @@ public static class VectorExtensionMethods
         Vector3 AV = value - a;
         return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
     }
+
+    /// <summary>
+    /// Collapses the direction of a vector.
+    /// </summary>
+    /// <param name="source"> The vector to modify </param>
+    /// <param name="direction"> The direction to nullify </param>
+    /// <returns></returns>
+    public static Vector3 CollapseDirection(this Vector3 source, Vector3 direction)
+    {
+        return source - (Vector3.Dot(source, direction) * direction);
+    }
+
+    //Vector3.Dot() It lets you get the magnitude of a component of a vector that is in a particular direction
 }
 
 public enum VectorAxis

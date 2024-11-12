@@ -20,7 +20,7 @@ public class PlayerInteraction : MonoBehaviour
     void Interact()
     {
         if (!Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, pickupRaylength)) return;
-        if (!hit.transform.root.TryGetComponent(out IPlayerInteractable interactable)) return;
+        if (!hit.transform.TryGetComponent(out IPlayerInteractable interactable)) return;
 
         gameObject.RunEvent<PlayerVisuals>( x => x.OnInteract() );
 
