@@ -22,12 +22,7 @@ public class PlayerMovement : CreatureMovement
 
     #endregion
 
-    Player player;
-
-    private void Awake() 
-    {
-        player = GetComponent<Player>();
-    }
+    [RequireAndAssignComponent, SerializeField] Player player;
     
     private void Update() 
     {

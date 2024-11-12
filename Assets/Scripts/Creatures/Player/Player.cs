@@ -10,14 +10,14 @@ public class Player : Creature
 
     // ---
     
-    public PlayerInput Input => this.GetComponentIfVarNull(ref input);
-    PlayerInput input;
+    public PlayerInput Input => input;
+    [RequireAndAssignComponent, SerializeField] PlayerInput input;
 
-    public PlayerStates States => this.GetComponentIfVarNull(ref states);
-    PlayerStates states;
+    public PlayerStates States => states;
+    [RequireAndAssignComponent, SerializeField] PlayerStates states;
 
-    public PlayerInteraction Interaction => this.GetComponentIfVarNull(ref interaction);
-    PlayerInteraction interaction;
+    public PlayerInteraction Interaction => interaction;
+    [RequireAndAssignComponent, SerializeField] PlayerInteraction interaction;
 
     private void Awake() 
     {

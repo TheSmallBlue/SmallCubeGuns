@@ -25,6 +25,7 @@ public abstract class Weapon : Equippable
         transform.parent = Holder;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector3.zero;
+        transform.localScale = Vector3.one;
     }
 
     public override void UnEquip()
