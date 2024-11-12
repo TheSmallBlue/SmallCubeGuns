@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PixelateScreen
+  m_Name: PixelateScreen Mat
   m_Shader: {fileID: -6465566751694194690, guid: fc5318d6e7b65fd4f9af78e84ff621a7,
     type: 3}
   m_Parent: {fileID: 0}

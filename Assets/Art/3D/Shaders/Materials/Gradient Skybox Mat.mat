@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gradient Skybox
+  m_Name: Gradient Skybox Mat
   m_Shader: {fileID: -6465566751694194690, guid: 399ccdca9ba87f84cac510aa0b43a93b,
     type: 3}
   m_Parent: {fileID: 0}
