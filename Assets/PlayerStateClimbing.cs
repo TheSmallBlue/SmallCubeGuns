@@ -44,8 +44,6 @@ public class PlayerStateClimbing : PlayerState
         intendedPosition += input.MovementInput.y * upVector * climbSpeed;
         rb.transform.position = Vector3.SmoothDamp(rb.transform.position, intendedPosition, ref velocity, 0.25f);
 
-        Debug.Log(isAgainstWall);
-
         if(timeClimbing > 0.5f && Source.Movement.IsGrounded)
         {
             SourceFSM.ChangeState(PlayerStates.StateType.Grounded);
