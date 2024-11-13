@@ -1091,7 +1091,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b04807a15af33848afe8a3e0666e627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Transitions: []
+  Transitions:
+  - Input: 0
+    State: {fileID: 86970518}
+  - Input: 1
+    State: {fileID: 86970517}
   climbSpeed: 0.25
 --- !u!1001 &143919325
 PrefabInstance:
