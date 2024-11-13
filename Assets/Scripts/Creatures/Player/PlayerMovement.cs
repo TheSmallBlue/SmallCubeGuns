@@ -34,10 +34,10 @@ public class PlayerMovement : CreatureMovement
     {
         if(IsGrounded)
         {
-            if(player.Input.IsButtonHeld("Sprint")) 
-                return dashingMovement;
-            else if(player.Input.IsButtonHeld("Crouch"))
+            if(player.Input.IsButtonHeld("Crouch")) 
                 return crouchingMovement;
+            else if(player.Input.IsButtonHeld("Sprint"))
+                return dashingMovement;
             else
                 return walkingMovement;
 
