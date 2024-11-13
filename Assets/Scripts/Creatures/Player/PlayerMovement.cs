@@ -17,6 +17,7 @@ public class PlayerMovement : CreatureMovement
 
     [Header("Player settings")]
     [SerializeField] HorizontalMovementSettings walkingMovement;
+    [SerializeField] HorizontalMovementSettings crouchingMovement;
     [SerializeField] HorizontalMovementSettings dashingMovement;
     [SerializeField] HorizontalMovementSettings airMovement;
 
@@ -35,9 +36,11 @@ public class PlayerMovement : CreatureMovement
         {
             if(player.Input.IsButtonHeld("Sprint")) 
                 return dashingMovement;
+            else if(player.Input.IsButtonHeld("Crouch"))
+                return crouchingMovement;
             else
                 return walkingMovement;
-            
+
         } else return airMovement;
     }
 }

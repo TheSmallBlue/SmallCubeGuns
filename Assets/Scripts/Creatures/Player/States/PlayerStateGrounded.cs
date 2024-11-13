@@ -16,6 +16,13 @@ public class PlayerStateGrounded : PlayerState
         if(!Source.Movement.IsGrounded)
         {
             SourceFSM.ChangeState(PlayerStates.StateType.Falling);
+            return;
+        }
+
+        if(Source.Input.IsButtonDown("Crouch"))
+        {
+            SourceFSM.ChangeState(PlayerStates.StateType.Crouching);
+            return;
         }
     }
 }

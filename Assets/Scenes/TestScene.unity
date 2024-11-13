@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04270606, g: 0.03179218, b: 0.33600816, a: 1}
+  m_IndirectSpecularColor: {r: 0.04598715, g: 0.03438096, b: 0.33118105, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 86970518}
   - component: {fileID: 86970517}
   - component: {fileID: 86970522}
+  - component: {fileID: 86970531}
   - component: {fileID: 86970530}
   - component: {fileID: 86970521}
   - component: {fileID: 86970525}
@@ -660,6 +661,8 @@ MonoBehaviour:
     State: {fileID: 86970517}
   - Input: 2
     State: {fileID: 86970522}
+  - Input: 4
+    State: {fileID: 86970531}
 --- !u!114 &86970519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +754,10 @@ MonoBehaviour:
     MaxSpeed: 8
     Acceleration: 4
     Decceleration: 6
+  crouchingMovement:
+    MaxSpeed: 4
+    Acceleration: 2
+    Decceleration: 3
   dashingMovement:
     MaxSpeed: 10
     Acceleration: 5
@@ -939,6 +946,14 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+    - m_Name: Crouch
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: c9442b7f-aafa-4057-8550-1eba10166867
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     m_Bindings:
     - m_Name: 
       m_Id: 3f6aedef-badd-4822-8b02-cf676cce9636
@@ -995,6 +1010,14 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Use
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 69b1f997-e70e-4fa3-b380-1e865ad1a7e5
+      m_Path: <Keyboard>/leftCtrl
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Crouch
       m_Flags: 0
 --- !u!136 &86970525
 CapsuleCollider:
@@ -1097,6 +1120,24 @@ MonoBehaviour:
   - Input: 1
     State: {fileID: 86970517}
   climbSpeed: 0.25
+--- !u!114 &86970531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86970511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63bdd96afd6b114dae941afca7981c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Transitions:
+  - Input: 0
+    State: {fileID: 86970518}
+  - Input: 1
+    State: {fileID: 86970517}
+  capsule: {fileID: 86970525}
 --- !u!1001 &143919325
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -46,6 +46,7 @@ public class PlayerStates : MonoBehaviour
         Grounded,
         Jumping,
         Falling,
-        Climbing
+        Climbing,
+        Crouching
     }
 }
