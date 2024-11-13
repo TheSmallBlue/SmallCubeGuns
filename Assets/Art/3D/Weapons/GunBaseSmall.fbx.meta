@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: GunBaseMat
+    second: {fileID: 2100000, guid: 9184cfe22457b844dad2d57593fbb066, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: GunBaseSmallMat
     second: {fileID: 2100000, guid: a28c33b09bd665347ad1ca489d949a4d, type: 2}
   materials:

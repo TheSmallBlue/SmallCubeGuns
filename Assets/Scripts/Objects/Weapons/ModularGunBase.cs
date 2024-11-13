@@ -41,6 +41,8 @@ public class ModularGunBase : Weapon
 
     protected override void Fire(Vector3 direction)
     {
+        if(modules.Count == 0) return;
+        
         Fireable result = null;
 
         foreach (var item in modules)

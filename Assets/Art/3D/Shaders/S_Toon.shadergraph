@@ -10,9 +10,6 @@
             "m_Id": "090a6fdb28fc401aa7cd307aa7e5366f"
         },
         {
-            "m_Id": "e0214f16b5ec4badac9f0ea92f06624a"
-        },
-        {
             "m_Id": "34da03e4a004474bbd206aae2dd40fbe"
         }
     ],
@@ -508,9 +505,6 @@
         },
         {
             "m_Id": "090a6fdb28fc401aa7cd307aa7e5366f"
-        },
-        {
-            "m_Id": "e0214f16b5ec4badac9f0ea92f06624a"
         }
     ]
 }
@@ -1274,36 +1268,6 @@
         "e32": 0.0,
         "e33": 1.0
     }
-}
-
-{
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "e0214f16b5ec4badac9f0ea92f06624a",
-    "m_Guid": {
-        "m_GuidSerialized": "56b98d75-b7f2-4ff8-b509-cd4c9fe1e4ee"
-    },
-    "m_Name": "ShadowColor",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "ShadowColor",
-    "m_DefaultReferenceName": "_ShadowColor",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 0.0,
-        "g": 0.0,
-        "b": 0.0,
-        "a": 0.0
-    },
-    "isMainColor": false,
-    "m_ColorMode": 0
 }
 
 {
