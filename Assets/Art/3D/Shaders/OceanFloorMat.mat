@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_S_OceanFloor
+  m_Name: OceanFloorMat
   m_Shader: {fileID: -6465566751694194690, guid: 4c803539fa7f7b14796f6c9fe4f992a8,
     type: 3}
   m_Parent: {fileID: 0}
@@ -46,13 +46,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FadePower: 20
     - _LightDensity: 250
-    - _LightPower: 4
+    - _LightPower: 2.5
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _FloorColor: {r: 0.26326093, g: 0.22454612, b: 0.5471698, a: 0}
     - _LightColor: {r: 0.7137255, g: 0.85882354, b: 1, a: 0}
+    - _LightColor1: {r: 0.58406013, g: 0.60853326, b: 0.990566, a: 0}
+    - _LightColor2: {r: 0.7216981, g: 0.8414736, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &240433325875214440
 MonoBehaviour:
