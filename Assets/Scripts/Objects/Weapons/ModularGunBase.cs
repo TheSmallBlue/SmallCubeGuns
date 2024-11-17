@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class ModularGunBase : Weapon
 {
+    public List<GunModule> Modules => modules;
+    
     [Header("Module settings")]
     [SerializeField] int maxModuleAmount = 5;
     [SerializeField] List<GunModule> modules = new List<GunModule>();
@@ -23,6 +25,7 @@ public class ModularGunBase : Weapon
     {
         foreach (var module in modules)
         {
+            Debug.Log(transform.name);
             var newModule = module;
 
             // If the module is a prefab, instantiate it
@@ -35,7 +38,7 @@ public class ModularGunBase : Weapon
 
     public bool AddModule(GunModule module, bool defaultModule = false)
     {
-        if(modules.Count >= maxModuleAmount) return false;
+        if(!defaultModule && modules.Count >= maxModuleAmount) return false;
         if(!defaultModule && modules.Contains(module)) return false;
 
         if (!defaultModule) modules.Add(module);

@@ -22,6 +22,7 @@ public class GuardBehaviourTree : MonoBehaviour
     {
         tree = new BehaviourTree
         (
+            #region BT: Find Gun
             // If any of these are true, we continue
             new Selector
             (
@@ -36,7 +37,10 @@ public class GuardBehaviourTree : MonoBehaviour
                     (
                         new ConditionalLeaf(() => 
                         {
-                            storedObject = Physics.OverlapSphere(transform.position, gunCheckRadius).Select(x => x.GetComponent<Weapon>()).Where(x => x != null && !x.Equipped).FirstOrDefault();
+                            storedObject = Physics.OverlapSphere(transform.position, gunCheckRadius).Select(x => x.GetComponent<ModularGunBase>())
+                                .Where(x => x != null && !x.Equipped)
+                                .OrderBy(x => x.Modules.Count) // This should make it prioritize guns with more modules
+                                .FirstOrDefault();
                             return storedObject != null;
                         })
                     ),
@@ -77,7 +81,7 @@ public class GuardBehaviourTree : MonoBehaviour
                     // Pick up that physics object.
                     new Sequence
                     (
-                        // Make sure that what we saw is actually a gun!
+                        // Make sure that what we saw is actually an equippable!
                         new Leaf
                         (
                             new ConditionalLeaf(() => storedObject is EquippableRigidbody)
@@ -95,8 +99,10 @@ public class GuardBehaviourTree : MonoBehaviour
                     )
                 )
                 // If not, lets search the entire map for a gun and lets go get it
-                
             )
+            #endregion
+            
+
         );
     }
 
