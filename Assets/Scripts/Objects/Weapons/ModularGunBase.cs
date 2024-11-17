@@ -19,16 +19,32 @@ public class ModularGunBase : Weapon
     [Header("Editor Settings")]
     [SerializeField] Mesh previewModuleMesh;
 
-    public bool AddModule(GunModule module)
+    private void Awake() 
+    {
+        foreach (var module in modules)
+        {
+            var newModule = module;
+
+            // If the module is a prefab, instantiate it
+            if(module.gameObject.scene.isLoaded == false)
+                newModule = Instantiate(module);
+
+            AddModule(newModule, defaultModule: true);
+        }
+    }
+
+    public bool AddModule(GunModule module, bool defaultModule = false)
     {
         if(modules.Count >= maxModuleAmount) return false;
-        if(modules.Contains(module)) return false;
+        if(!defaultModule && modules.Contains(module)) return false;
+
+        if (!defaultModule) modules.Add(module);
+
+        module.DisableRigidBody();
 
         module.transform.parent = modulesParent;
         module.transform.localRotation = Quaternion.identity;
-        module.transform.localPosition = Vector3.forward * moduleSize * 0.2f * modules.Count;
-
-        modules.Add(module);
+        module.transform.localPosition = Vector3.forward * moduleSize * 0.2f * (modules.Count - 1);
 
         return true;
     }

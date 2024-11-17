@@ -20,6 +20,7 @@ public class CreatureMovement : MonoBehaviour
 
     public Vector3 Gravity => gravity;
     public bool IsGrounded => GroundedCheck(out RaycastHit ignoredHit);
+    public HorizontalMovementSettings WalkingMovement => walkingMovement;
 
     [HideInInspector] public float GravityMultiplier = 1;
 
@@ -29,6 +30,9 @@ public class CreatureMovement : MonoBehaviour
 
     [Header("Gravity")]
     [SerializeField] Vector3 gravity;
+
+    [Header("Movement speed")]
+    [SerializeField] protected HorizontalMovementSettings walkingMovement;
 
     [Header("Floor and Wall Checks")]
     [SerializeField] LayerMask floorLayer;

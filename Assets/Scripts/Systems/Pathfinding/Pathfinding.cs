@@ -95,7 +95,7 @@ namespace CubeGuns.Pathfinding
                     HCost[neighbour] = neighbourCost + getHeuristic(neighbour, end);
                 }
             }
-
+            
             output(null);
         }
 

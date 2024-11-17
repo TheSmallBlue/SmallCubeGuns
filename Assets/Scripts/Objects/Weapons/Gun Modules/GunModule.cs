@@ -19,7 +19,10 @@ public abstract class GunModule : EquippableRigidbody
         {
             renderer.gameObject.layer = 20;
         }
+    }
 
+    public void DisableRigidBody()
+    {
         foreach (var collider in GetComponents<Collider>())
         {
             collider.enabled = false;

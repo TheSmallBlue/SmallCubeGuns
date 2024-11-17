@@ -42,6 +42,7 @@ public class NodeComponent : MonoBehaviour, IPathfindingNode
 
     private void OnDrawGizmosSelected() 
     {
+        Gizmos.DrawWireSphere(transform.position, 1f);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, neighbourCheckRadius);
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace CubeGuns.BehaviourTree
 {
     /// <summary>
-    /// Interface that every leaf must implement for it to work as a leaf.
+    /// Interface that every leaf must implement.
     /// </summary>
     public interface ILeaf
     {
@@ -15,16 +15,16 @@ namespace CubeGuns.BehaviourTree
     }
 
     /// <summary>
-    /// A node that works with the given class, as long as it implements ILeaf
+    /// A node with no child nodes.
     /// </summary>
     public class Leaf : Node
     {
-        // We implement strategy mainly simplify the builders of each class.
-        // If we made each node a class of Node, then every builder would need to implement node's parameters, lest it causes nasty issues
-        // With this, each class can implement any paramaters into their builders!
+        // Here, instead of making classes inherit from node, we make them implement the interface ILeaf, thus implementing strategy.
+        // Why? We simply don't want to carry the baggage that comes with inheriting from a full on node.
+        // Only things that route logic should inherit from nodes, stuff like selectors and sequences.
         public ILeaf strategy { get; private set; }
 
-        public Leaf(ILeaf leaf, params Node[] children) : base(children) 
+        public Leaf(ILeaf leaf)
         {
             strategy = leaf;
         }

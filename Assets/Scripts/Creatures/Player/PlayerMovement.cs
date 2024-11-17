@@ -7,7 +7,6 @@ public class PlayerMovement : CreatureMovement
 {
     #region Public Variables
 
-    public HorizontalMovementSettings WalkingMovement => walkingMovement;
     public HorizontalMovementSettings DashingMovement => dashingMovement;
     public HorizontalMovementSettings AirMovement => airMovement;
 
@@ -15,8 +14,7 @@ public class PlayerMovement : CreatureMovement
 
     #region Serialized Variables
 
-    [Header("Player settings")]
-    [SerializeField] HorizontalMovementSettings walkingMovement;
+    [Header("Player movement speeds")]
     [SerializeField] HorizontalMovementSettings crouchingMovement;
     [SerializeField] HorizontalMovementSettings dashingMovement;
     [SerializeField] HorizontalMovementSettings airMovement;
