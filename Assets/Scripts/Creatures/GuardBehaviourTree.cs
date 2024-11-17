@@ -119,7 +119,9 @@ public class GuardBehaviourTree : MonoBehaviour
             // On player seen
             new Sequence
             (
-
+                // If we got this far, it means that we have a gun and that we're currently seeing the player!
+                // Make some distance between you and the player
+                // SHOOT!!!!
             )
 
         );
