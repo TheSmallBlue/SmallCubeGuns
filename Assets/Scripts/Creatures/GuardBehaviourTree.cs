@@ -99,9 +99,28 @@ public class GuardBehaviourTree : MonoBehaviour
                     )
                 )
                 // If not, lets search the entire map for a gun and lets go get it
-            )
+            ),
             #endregion
-            
+            // Patrol
+            new Selector
+            (
+                // Can we see the player?
+                new Leaf
+                (
+                    new ConditionalLeaf(() => false)
+                ),
+                // If not, lets patrol
+                new Sequence
+                (
+                    // Get next patrol index
+                    // Move towards next patrol index
+                )
+            ),
+            // On player seen
+            new Sequence
+            (
+
+            )
 
         );
     }
