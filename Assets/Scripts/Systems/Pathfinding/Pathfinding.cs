@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CubeGuns.Sight;
 using UnityEngine;
 
@@ -22,8 +23,9 @@ namespace CubeGuns.Pathfinding
         /// <param name="isGoalReached"> The function we will use to check if our goal state has been reached. </param>
         /// <param name="output"> The function that will be called once a path is properly planned out. </param>
         /// <returns></returns>
-        public static IEnumerator AStar<Node>(Node start, Node end, Func<Node, Node, float> getHeuristic, Func<Node, List<Tuple<Node, float>>> getNeighbours, Func<Node, bool> isGoalReached, Action<IEnumerable<Node>> output) where Node : class
+        public static async Task<IEnumerable<Node>> AStar<Node>(Node start, Node end, Func<Node, Node, float> getHeuristic, Func<Node, List<Tuple<Node, float>>> getNeighbours, Func<Node, bool> isGoalReached) where Node : class
         {
+            await Task.Delay(5000);
             // Open is the nodes that haven't been processed yet. Closed is the nodes we've already processed.
             HashSet<Node> open = new(), closed = new();
             open.Add(start);
@@ -47,7 +49,7 @@ namespace CubeGuns.Pathfinding
                 if(loops > LOOPSPERFRAME)
                 {
                     loops = 0;
-                    yield return null;
+                    await Task.Yield();
                 }
 
                 var current = open.OrderBy(x => HCost[x]).First();
@@ -65,9 +67,7 @@ namespace CubeGuns.Pathfinding
                     path.Add(start);
                     path.Reverse();
 
-                    output(path);
-
-                    yield break;
+                    return path;
                 }
 
                 open.Remove(current);
@@ -95,8 +95,8 @@ namespace CubeGuns.Pathfinding
                     HCost[neighbour] = neighbourCost + getHeuristic(neighbour, end);
                 }
             }
-            
-            output(null);
+
+            throw new Exception("Path could not be found!");
         }
 
 
@@ -107,35 +107,38 @@ namespace CubeGuns.Pathfinding
         /// <param name="end"> The end node. </param>
         /// <param name="output"> The result, sent as an action. </param>
         /// <returns></returns>
-        public static IEnumerator AStar<Node>(Node start, Node end, Action<IEnumerable<Node>> output) where Node : class, IPathfindingNode
+        public static IEnumerable<Node> AStar<Node>(Node start, Node end) where Node : class, IPathfindingNode
         {
-            yield return AStar
-            (
-                start, end, 
-                (n1, n2) => Vector3.Distance(n1.GetPosition(), n2.GetPosition()), 
-                (n1) => n1.GetNeighbours().Select(n2 => new Tuple<Node, float>(n2 as Node, Vector3.Distance(n1.GetPosition(), n2.GetPosition()))).ToList(), 
-                (n) => n == end,
-                output
+            var task = Task.Run( async () =>
+                await AStar
+                (
+                    start, end,
+                    (n1, n2) => Vector3.Distance(n1.GetPosition(), n2.GetPosition()),
+                    (n1) => n1.GetNeighbours().Select(n2 => new Tuple<Node, float>(n2 as Node, Vector3.Distance(n1.GetPosition(), n2.GetPosition()))).ToList(),
+                    (n) => n == end
+                )
             );
+
+            return task.Result;
         }
 
-        public static IEnumerator ThetaStar<Node>(Node start, Node end, LayerMask wallLayer, Action<List<Node>> output) where Node : class, IPathfindingNode
+        public static IEnumerable<Node> ThetaStar<Node>(Node start, Node end, LayerMask wallLayer) where Node : class, IPathfindingNode
         {
-            List<Node> path = new();
-            yield return AStar(start, end, (r) => path = r.ToList());
+            IEnumerable<Node> path = AStar(start, end);
+            var listPath = path.ToList();
 
-            if(path.Count == 0) yield break;
+            if (path.Count() == 0) return path;
 
             int current = 0;
-            while (current + 2 < path.Count)
+            while (current + 2 < listPath.Count)
             {
-                if(SightHelpers.InLineOfSight(path[current].GetPosition(), path[current + 2].GetPosition(), wallLayer))
-                    path.RemoveAt(current + 1);
+                if(SightHelpers.InLineOfSight(listPath[current].GetPosition(), listPath[current + 2].GetPosition(), wallLayer))
+                    listPath.RemoveAt(current + 1);
                 else
                     current++;
             }
 
-            output(path);
+            return listPath;
         }
     }
 

@@ -16,6 +16,7 @@ public abstract class Equippable : MonoBehaviour, IPlayerInteractable
 
     public virtual void Equip(EquipmentHolder source)
     {
+        if (Equipped) Source.Drop();
         Source = source;
     }
 
