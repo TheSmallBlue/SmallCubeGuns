@@ -788,12 +788,12 @@ MonoBehaviour:
     MaxSpeed: 8
     Acceleration: 4
     Decceleration: 6
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 2049
   wallCheckHeight: 0.5
   wallCheckRadius: 0.4
   wallCheckLength: 0.2
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 2049
   stepRayHeight: -0.9
   stepRayLowerLength: 0.6
   stepRayUpperLength: 0.6
@@ -5524,7 +5524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 858729410}
   - component: {fileID: 858729415}
-  - component: {fileID: 858729414}
+  - component: {fileID: 858729417}
   - component: {fileID: 858729412}
   - component: {fileID: 858729411}
   - component: {fileID: 858729409}
@@ -5634,35 +5634,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &858729414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858729408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4be6e23b837f0541af4fe2f31e66748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GravityMultiplier: 1
-  gravity: {x: 0, y: -9, z: 0}
-  walkingMovement:
-    MaxSpeed: 8
-    Acceleration: 4
-    Decceleration: 6
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  wallCheckHeight: 0.5
-  wallCheckRadius: 0.4
-  wallCheckLength: 0.2
-  stepRayHeight: -0.9
-  stepRayLowerLength: 0.6
-  stepRayUpperLength: 0.6
-  stepHeight: 0.3
-  stepSmooth: 0.1
 --- !u!114 &858729415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5690,6 +5661,39 @@ MonoBehaviour:
   guard: {fileID: 858729415}
   graph: {fileID: 1698172714}
   gunCheckRadius: 10
+--- !u!114 &858729417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858729408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfd306d776d2224d846ba666a1e2611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GravityMultiplier: 1
+  gravity: {x: 0, y: -9, z: 0}
+  walkingMovement:
+    MaxSpeed: 8
+    Acceleration: 4
+    Decceleration: 6
+  wallCheckHeight: 0.5
+  wallCheckRadius: 0.4
+  wallCheckLength: 0.2
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  stepRayHeight: -0.9
+  stepRayLowerLength: 0.6
+  stepRayUpperLength: 0.6
+  stepHeight: 0.3
+  stepSmooth: 0.1
+  avoidanceChecksHeight: 0
+  avoidanceChecksLength: 1
+  avoidanceChecksDistance: 1
+  avoidanceForce: 5
 --- !u!1 &885208054
 GameObject:
   m_ObjectHideFlags: 0

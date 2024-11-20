@@ -12,6 +12,12 @@ namespace CubeGuns.Pathfinding
     {
         readonly static int LOOPSPERFRAME = 5;
 
+        // Usamos mucho Await.
+        // La idea original era delegar el metodo de AStar a otro thread. Sin embargo, eso no es posible, ya que dependemos mucho de
+        // conseguir transforms, lo cual solo puede ocurrir en el main thread. Asi que ahora mismo await solo sirve como forma de evitar
+        // que el juego se trabe mientras calculamos un camino complicado.
+        // La alternativa seria usar corutinas, pero esto nos deja usar este metodo por fuera de un GameObject.
+
         /// <summary>
         /// Function that implements the A* pathfinding algorithm generically.
         /// </summary>
@@ -23,9 +29,8 @@ namespace CubeGuns.Pathfinding
         /// <param name="isGoalReached"> The function we will use to check if our goal state has been reached. </param>
         /// <param name="output"> The function that will be called once a path is properly planned out. </param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Node>> AStar<Node>(Node start, Node end, Func<Node, Node, float> getHeuristic, Func<Node, List<Tuple<Node, float>>> getNeighbours, Func<Node, bool> isGoalReached) where Node : class
+        public static async Task<List<Node>> AStar<Node>(Node start, Node end, Func<Node, Node, float> getHeuristic, Func<Node, List<Tuple<Node, float>>> getNeighbours, Func<Node, bool> isGoalReached) where Node : class
         {
-            await Task.Delay(5000);
             // Open is the nodes that haven't been processed yet. Closed is the nodes we've already processed.
             HashSet<Node> open = new(), closed = new();
             open.Add(start);
@@ -46,7 +51,7 @@ namespace CubeGuns.Pathfinding
                 // If the amount of loops is bigger than what we allow, we must let a frame pass.
                 // This lets us balance frame times AND lets us try to make the most out of our pathfinding.
                 loops++;
-                if(loops > LOOPSPERFRAME)
+                if (loops > LOOPSPERFRAME)
                 {
                     loops = 0;
                     await Task.Yield();
@@ -54,7 +59,7 @@ namespace CubeGuns.Pathfinding
 
                 var current = open.OrderBy(x => HCost[x]).First();
 
-                if(isGoalReached(current))
+                if (isGoalReached(current))
                 {
                     var path = new List<Node>();
 
@@ -74,7 +79,7 @@ namespace CubeGuns.Pathfinding
                 closed.Add(current);
 
                 var neighbours = getNeighbours(current);
-                if(neighbours == null || !neighbours.Any()) continue;
+                if (neighbours == null || !neighbours.Any()) continue;
 
                 var currentCost = GCost[current];
 
@@ -83,12 +88,12 @@ namespace CubeGuns.Pathfinding
                     Node neighbour = n.Item1;
                     float cost = n.Item2;
 
-                    if(closed.Contains(neighbour)) continue;
+                    if (closed.Contains(neighbour)) continue;
 
                     var neighbourCost = currentCost + cost;
                     open.Add(neighbour);
 
-                    if(neighbourCost > HCost.DefaultGet(neighbour, () => neighbourCost)) continue;
+                    if (neighbourCost > HCost.DefaultGet(neighbour, () => neighbourCost)) continue;
 
                     previousNodeOf[neighbour] = current;
                     GCost[neighbour] = neighbourCost;
@@ -107,24 +112,21 @@ namespace CubeGuns.Pathfinding
         /// <param name="end"> The end node. </param>
         /// <param name="output"> The result, sent as an action. </param>
         /// <returns></returns>
-        public static IEnumerable<Node> AStar<Node>(Node start, Node end) where Node : class, IPathfindingNode
+        public static async Task<List<Node>> AStar<Node>(Node start, Node end) where Node : class, IPathfindingNode
         {
-            var task = Task.Run( async () =>
-                await AStar
+            return await AStar
                 (
                     start, end,
                     (n1, n2) => Vector3.Distance(n1.GetPosition(), n2.GetPosition()),
                     (n1) => n1.GetNeighbours().Select(n2 => new Tuple<Node, float>(n2 as Node, Vector3.Distance(n1.GetPosition(), n2.GetPosition()))).ToList(),
                     (n) => n == end
-                )
-            );
+                );
 
-            return task.Result;
         }
 
-        public static IEnumerable<Node> ThetaStar<Node>(Node start, Node end, LayerMask wallLayer) where Node : class, IPathfindingNode
+        public static async Task<List<Node>> ThetaStar<Node>(Node start, Node end, LayerMask wallLayer) where Node : class, IPathfindingNode
         {
-            IEnumerable<Node> path = AStar(start, end);
+            var path = await AStar(start, end);
             var listPath = path.ToList();
 
             if (path.Count() == 0) return path;
@@ -132,7 +134,7 @@ namespace CubeGuns.Pathfinding
             int current = 0;
             while (current + 2 < listPath.Count)
             {
-                if(SightHelpers.InLineOfSight(listPath[current].GetPosition(), listPath[current + 2].GetPosition(), wallLayer))
+                if (SightHelpers.InLineOfSight(listPath[current].GetPosition(), listPath[current + 2].GetPosition(), wallLayer))
                     listPath.RemoveAt(current + 1);
                 else
                     current++;

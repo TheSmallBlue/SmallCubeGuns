@@ -34,13 +34,17 @@ public class CreatureMovement : MonoBehaviour
     [Header("Movement speed")]
     [SerializeField] protected HorizontalMovementSettings walkingMovement;
 
-    [Header("Floor and Wall Checks")]
-    [SerializeField] LayerMask floorLayer;
+    [Header("Wall Checks")]
 
     [Space]
     [SerializeField] float wallCheckHeight = 0.5f;
     [SerializeField] float wallCheckRadius = 0.4f;
     [SerializeField] float wallCheckLength = 0.2f;
+
+    [Header("Floor Checks")]
+
+    [Space]
+    [SerializeField] LayerMask floorLayer;
 
     [Space]
     [SerializeField] float stepRayHeight = -0.9f;
@@ -152,7 +156,7 @@ public class CreatureMovement : MonoBehaviour
 
     #region Editor
 
-    private void OnDrawGizmosSelected() 
+    protected virtual void OnDrawGizmosSelected() 
     {
         // Walls
         Gizmos.color = Color.red;

@@ -55,7 +55,7 @@ public class GuardBehaviourTree : MonoBehaviour
                         // Then walk to it...
                         new Leaf
                         (
-                            new PathfindingLeaf(this, guard.Movement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position)
+                            new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position)
                         ),
                         // And pick it up!
                         new Leaf
@@ -89,7 +89,7 @@ public class GuardBehaviourTree : MonoBehaviour
                         // Then walk to it...
                         new Leaf
                         (
-                            new PathfindingLeaf(this, guard.Movement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position)
+                            new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position)
                         ),
                         // And pick it up!
                         new Leaf
