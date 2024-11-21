@@ -65,7 +65,6 @@ public static class VectorExtensionMethods
     {
         return source - (Vector3.Dot(source, direction) * direction);
     }
-
     //Vector3.Dot() It lets you get the magnitude of a component of a vector that is in a particular direction
 }
 
