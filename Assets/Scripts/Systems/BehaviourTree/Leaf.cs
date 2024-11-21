@@ -74,32 +74,24 @@ namespace CubeGuns.BehaviourTree
     public class DelayLeaf : ILeaf
     {
         float length;
-        float passedTime;
+        float startTime;
 
-        Func<bool> interruption;
-
-        public DelayLeaf(float length, Func<bool> interruption = null)
+        public DelayLeaf(float length)
         {
             this.length = length;
-            this.interruption = interruption;
         }
 
         public NodeStatus Process()
         {
-            passedTime += Time.deltaTime;
+            if(startTime == 0) startTime = Time.time;
 
-            if(interruption != null && interruption())
-                return NodeStatus.FAILED;
-
-            if(passedTime > length)
+            if(Time.time - startTime > length)
+            {
+                startTime = 0;
                 return NodeStatus.SUCCEEDED;
+            }
             
-            return NodeStatus.RUNNING;
-        }
-
-        public void Reset()
-        {
-            passedTime = 0;
+            return NodeStatus.FAILED;
         }
     }
 }

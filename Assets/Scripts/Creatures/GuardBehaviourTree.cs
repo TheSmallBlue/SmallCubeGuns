@@ -59,6 +59,10 @@ public class GuardBehaviourTree : MonoBehaviour
                             new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position/*, () => (storedObject as Equippable).Equipped*/)
                         ),
                         // And pick it up!
+                        new Leaf 
+                        (
+                            new ConditionalLeaf(() => Vector3.Distance(transform.position, (storedObject as Equippable).transform.position) < 2f)
+                        ),
                         new Leaf
                         (
                             new ActionLeaf(() => guard.Equipment.PickUp(storedObject as Equippable))
@@ -94,6 +98,10 @@ public class GuardBehaviourTree : MonoBehaviour
                             new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position/*, () => (storedObject as Equippable).Equipped*/)
                         ),
                         // And pick it up!
+                        new Leaf
+                        (
+                            new ConditionalLeaf(() => Vector3.Distance(transform.position, (storedObject as Equippable).transform.position) < 2f)
+                        ),
                         new Leaf
                         (
                             new ActionLeaf(() => guard.Equipment.PickUp(storedObject as Equippable))
