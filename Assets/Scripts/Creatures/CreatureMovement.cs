@@ -104,7 +104,9 @@ public class CreatureMovement : MonoBehaviour
     /// <returns></returns>
     public bool ObstructionCheck(Vector3 checkDirection)
     {
-        return Physics.CapsuleCast(transform.position.AddToAxis(VectorAxis.Y, wallCheckHeight), transform.position.AddToAxis(VectorAxis.Y, -wallCheckHeight), wallCheckRadius, checkDirection, wallCheckLength, floorLayer);
+        bool obstruction = Physics.CapsuleCast(transform.position.AddToAxis(VectorAxis.Y, wallCheckHeight), transform.position.AddToAxis(VectorAxis.Y, -wallCheckHeight), wallCheckRadius, checkDirection, out RaycastHit hit, wallCheckLength, floorLayer);
+
+        return obstruction && (!hit.transform.TryGetComponent(out Equippable equippable) || !equippable.Equipped);
     }
 
     public enum ObstacleType

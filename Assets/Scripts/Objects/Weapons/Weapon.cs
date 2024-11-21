@@ -19,7 +19,7 @@ public abstract class Weapon : Equippable
 
         foreach (var collider in GetComponents<Collider>())
         {
-            collider.enabled = false;
+            collider.isTrigger = true;
         }
 
         transform.parent = Holder;
@@ -38,7 +38,7 @@ public abstract class Weapon : Equippable
 
         foreach (var collider in GetComponents<Collider>())
         {
-            collider.enabled = true;
+            collider.isTrigger = false;
         }
     }
 

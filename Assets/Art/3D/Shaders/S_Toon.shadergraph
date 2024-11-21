@@ -4,13 +4,13 @@
     "m_ObjectId": "0cc9fc8a3a404c7980120fb44b326e03",
     "m_Properties": [
         {
+            "m_Id": "da1c78960a93487c93baa3e11a7f834a"
+        },
+        {
             "m_Id": "fe2009cb17d0481ab6e18eed401b163c"
         },
         {
             "m_Id": "090a6fdb28fc401aa7cd307aa7e5366f"
-        },
-        {
-            "m_Id": "34da03e4a004474bbd206aae2dd40fbe"
         }
     ],
     "m_Keywords": [],
@@ -433,34 +433,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "34da03e4a004474bbd206aae2dd40fbe",
-    "m_Guid": {
-        "m_GuidSerialized": "72dca3ef-3a42-4339-bfe8-8a45c30f76a7"
-    },
-    "m_Name": "NormalTexture",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "NormalTexture",
-    "m_DefaultReferenceName": "_NormalTexture",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SamplerStateMaterialSlot",
     "m_ObjectId": "3ca413da80cd473e8c4147761e6a0a15",
@@ -501,7 +473,7 @@
             "m_Id": "fe2009cb17d0481ab6e18eed401b163c"
         },
         {
-            "m_Id": "34da03e4a004474bbd206aae2dd40fbe"
+            "m_Id": "da1c78960a93487c93baa3e11a7f834a"
         },
         {
             "m_Id": "090a6fdb28fc401aa7cd307aa7e5366f"
@@ -1198,6 +1170,36 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
+    "m_ObjectId": "da1c78960a93487c93baa3e11a7f834a",
+    "m_Guid": {
+        "m_GuidSerialized": "0996f400-5e99-4bb5-b87f-fead1f7758f6"
+    },
+    "m_Name": "NormalTexture",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "NormalTexture",
+    "m_DefaultReferenceName": "_NormalTexture",
+    "m_OverrideReferenceName": "_MainTex_1",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":10309,\"guid\":\"0000000000000000f000000000000000\",\"type\":0}}",
+        "m_Guid": ""
+    },
+    "isMainTexture": false,
+    "useTilingAndOffset": false,
+    "m_Modifiable": true,
+    "m_DefaultType": 0
 }
 
 {

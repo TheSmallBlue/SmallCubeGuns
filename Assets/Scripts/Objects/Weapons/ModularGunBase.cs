@@ -48,6 +48,7 @@ public class ModularGunBase : Weapon
         module.transform.parent = modulesParent;
         module.transform.localRotation = Quaternion.identity;
         module.transform.localPosition = Vector3.forward * moduleSize * 0.2f * (modules.Count - 1);
+        module.transform.localScale = Vector3.one;
 
         return true;
     }
