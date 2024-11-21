@@ -47,6 +47,7 @@ public class PlayerEquipmentHolder : EquipmentHolder
 
         if(input.IsButtonDown("Fire"))
         {
+            gameObject.RunEvent<PlayerVisuals>((v) => v.OnShoot());
             HeldObject.Use(Camera.main.transform.forward);
         }
 

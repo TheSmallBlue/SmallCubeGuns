@@ -49,4 +49,9 @@ public class PlayerVisuals : MonoBehaviour
     {
         armsAnimator.SetTrigger("Interact");
     }
+
+    public void OnShoot()
+    {
+        armsAnimator.SetTrigger("Shoot");
+    }
 }
