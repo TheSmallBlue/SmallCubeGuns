@@ -65,6 +65,14 @@ namespace CubeGuns.BehaviourTree
         bool MoveThroughPath(Queue<NodeComponent> path)
         {
             Vector3 target = CanSee(destination()) ? destination() : path.Peek().GetPosition();
+
+            if(!CanSee(target))
+            {
+                // This shouldnt happen unless we've been forcefully moved off of our path!
+                // So let's recalculate it.
+                pathStatus = PathStatus.None;
+            }
+
             Vector3 dirToTarget = (target - movement.transform.position).CollapseAxis(VectorAxis.Y);
             Vector3 movementForward = dirToTarget + movement.WallAvoidance();
 
