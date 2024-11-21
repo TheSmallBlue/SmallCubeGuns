@@ -68,5 +68,39 @@ namespace CubeGuns.BehaviourTree
         }
     }
 
+    /// <summary>
+    /// A leaf that lets you wait an X amount of seconds.
+    /// </summary>
+    public class DelayLeaf : ILeaf
+    {
+        float length;
+        float passedTime;
+
+        Func<bool> interruption;
+
+        public DelayLeaf(float length, Func<bool> interruption = null)
+        {
+            this.length = length;
+            this.interruption = interruption;
+        }
+
+        public NodeStatus Process()
+        {
+            passedTime += Time.deltaTime;
+
+            if(interruption != null && interruption())
+                return NodeStatus.FAILED;
+
+            if(passedTime > length)
+                return NodeStatus.SUCCEEDED;
+            
+            return NodeStatus.RUNNING;
+        }
+
+        public void Reset()
+        {
+            passedTime = 0;
+        }
+    }
 }
 

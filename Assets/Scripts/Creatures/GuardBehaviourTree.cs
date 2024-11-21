@@ -9,6 +9,7 @@ using CubeGuns.Pathfinding;
 public class GuardBehaviourTree : MonoBehaviour
 {
     [RequireAndAssignComponent, SerializeField] Guard guard;
+    [RequireAndAssignComponent, SerializeField] Sight sight;
 
     [SerializeField] NodeGraph graph;
     [SerializeField] float gunCheckRadius;
@@ -38,8 +39,8 @@ public class GuardBehaviourTree : MonoBehaviour
                         new ConditionalLeaf(() => 
                         {
                             storedObject = Physics.OverlapSphere(transform.position, gunCheckRadius).Select(x => x.GetComponent<ModularGunBase>())
-                                .Where(x => x != null && !x.Equipped)
-                                .OrderBy(x => x.Modules.Count) // This should make it prioritize guns with more modules
+                                .Where(x => x != null /*&& !x.Equipped*/)
+                                .OrderByDescending(x => x.Modules.Count) // This should make it prioritize guns with more modules
                                 .FirstOrDefault();
                             return storedObject != null;
                         })
@@ -55,7 +56,7 @@ public class GuardBehaviourTree : MonoBehaviour
                         // Then walk to it...
                         new Leaf
                         (
-                            new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position)
+                            new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position/*, () => (storedObject as Equippable).Equipped*/)
                         ),
                         // And pick it up!
                         new Leaf
@@ -69,6 +70,7 @@ public class GuardBehaviourTree : MonoBehaviour
                 new Sequence
                 (
                     // Can we see the player?
+
                     // Can we get a phyisics object?
                     new Leaf
                     (
@@ -89,7 +91,7 @@ public class GuardBehaviourTree : MonoBehaviour
                         // Then walk to it...
                         new Leaf
                         (
-                            new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position)
+                            new MoveTo(guard.Movement as AIMovement, graph, () => transform.position, () => (storedObject as MonoBehaviour).transform.position/*, () => (storedObject as Equippable).Equipped*/)
                         ),
                         // And pick it up!
                         new Leaf
@@ -97,33 +99,54 @@ public class GuardBehaviourTree : MonoBehaviour
                             new ActionLeaf(() => guard.Equipment.PickUp(storedObject as Equippable))
                         )
                     )
-                )
-                // If not, lets search the entire map for a gun and lets go get it
-            ),
-            #endregion
-            // Patrol
-            new Selector
-            (
-                // Can we see the player?
-                new Leaf
-                (
-                    new ConditionalLeaf(() => false)
                 ),
-                // If not, lets patrol
+                // Uuuh. Let's stare awkwardly at the player like little freaks then?
                 new Sequence
                 (
-                    // Get next patrol index
-                    // Move towards next patrol index
+                    new Leaf
+                    (
+                        new ConditionalLeaf( () => sight.CanSeeThing(Player.Instance.transform) )
+                    ),
+                    new Leaf
+                    (
+                        new ActionLeaf( () => transform.LookAt(Player.Instance.transform, Vector3.up) )
+                    ),
+                    new Leaf
+                    (
+                        new ConditionalLeaf( () => false )
+                    )
                 )
             ),
-            // On player seen
-            new Sequence
+            #endregion
+            // Player and Patrol
+            new Selector
             (
-                // If we got this far, it means that we have a gun and that we're currently seeing the player!
-                // Make some distance between you and the player
-                // SHOOT!!!!
-            )
+                // Player check and chase
+                new Sequence
+                (
+                    // Can see player?
+                    new Leaf
+                    (
+                        new ConditionalLeaf( () => sight.CanSeeThing(Player.Instance.transform))
+                    ),
+                    // Get a safe distance away
+                    // Shoot!
+                    new Leaf
+                    (
+                        new ActionLeaf(() => transform.LookAt(Player.Instance.transform, Vector3.up))
+                    ),
+                    new Leaf
+                    (
+                        new DelayLeaf(0.5f)
+                    ),
+                    new Leaf
+                    (
+                        new ActionLeaf(() => guard.Equipment.UseObject((Player.Instance.transform.position - transform.position).normalized * 2.5f))
+                    )
+                )
+                // Patrol
 
+            )
         );
     }
 

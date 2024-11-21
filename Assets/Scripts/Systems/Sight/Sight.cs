@@ -23,6 +23,8 @@ public class Sight : MonoBehaviour
 
     #endregion
 
+    public bool CanSeeThing(Transform thing) => ThingsInSight.ContainsKey(thing);
+
     private void FixedUpdate() 
     {
         var seeableObjects = Physics.OverlapSphere(transform.position, sightRadius, sightMask);
@@ -31,7 +33,7 @@ public class Sight : MonoBehaviour
         {
             if(seeableObject.transform == transform) continue;
 
-            if(!SightHelpers.InLineOfSight(transform.position, seeableObject.transform.position, obstacleMask)) continue;
+            if(!SightHelpers.InFieldOfView(transform, seeableObject.transform.position, sightRadius, sightAngle, obstacleMask)) continue;
 
             if(ThingsInSight.ContainsKey(seeableObject.transform))
             {
@@ -51,7 +53,7 @@ public class Sight : MonoBehaviour
 
         var oldestThingSeen = ThingsInSight.OrderByDescending(x => Time.time - x.Value).First();
 
-        if(Time.time - oldestThingSeen.Value < sightMemory)
+        if(Time.time - oldestThingSeen.Value > sightMemory)
         {
             ThingsInSight.Remove(oldestThingSeen.Key);
         }
@@ -68,7 +70,7 @@ public class Sight : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, sightRadius);
 
-        Gizmos.DrawRay(transform.position, VectorHelpers.AngleToForward(transform.eulerAngles.y + sightAngle) * sightRadius);
-        Gizmos.DrawRay(transform.position, VectorHelpers.AngleToForward(transform.eulerAngles.y - sightAngle) * sightRadius);
+        Gizmos.DrawRay(transform.position, VectorHelpers.AngleToForward(transform.eulerAngles.y + sightAngle * 0.5f) * sightRadius);
+        Gizmos.DrawRay(transform.position, VectorHelpers.AngleToForward(transform.eulerAngles.y - sightAngle * 0.5f) * sightRadius);
     }
 }

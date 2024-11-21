@@ -16,6 +16,9 @@ public class PlayerStateCrouching : PlayerState
         defaultHeight = capsule.height;
 
         capsule.height *= 0.5f;
+
+        Source.Movement.GroundedCheck(out RaycastHit hitInfo);
+        Source.Movement.RB.position = hitInfo.point + hitInfo.normal * 0.5f;
     }
 
     public override void OnStateFixedUpdate()
