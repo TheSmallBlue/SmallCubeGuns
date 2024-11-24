@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using CubeGuns.Pathfinding;
+using System;
 
 [RequireComponent(typeof(Guard))]
 public class GuardBehaviourTree : MonoBehaviour
@@ -141,16 +142,9 @@ public class GuardBehaviourTree : MonoBehaviour
                     // Shoot!
                     new Leaf
                     (
-                        new ActionLeaf(() => transform.LookAt(Player.Instance.transform, Vector3.up))
-                    ),
-                    new Leaf
-                    (
-                        new DelayLeaf(0.5f)
-                    ),
-                    new Leaf
-                    (
-                        new ActionLeaf(() => guard.Equipment.UseObject((Player.Instance.transform.position - transform.position).normalized * 2.5f))
+                        new AimAndFire(guard, () => Player.Instance.transform, 0.5f)
                     )
+
                 )
                 // Patrol
 
@@ -169,5 +163,45 @@ public class GuardBehaviourTree : MonoBehaviour
     private void OnDrawGizmosSelected() 
     {
         Gizmos.DrawWireSphere(transform.position, gunCheckRadius);
+    }
+}
+
+public class AimAndFire : ILeaf
+{
+    Func<Transform> target;
+    float aimTime;
+    Guard source;
+
+    float startTime;
+
+    public AimAndFire(Guard source, Func<Transform> target, float aimTime)
+    {
+        this.target = target;
+        this.aimTime = aimTime;
+        this.source = source;
+    }
+
+    public NodeStatus Process()
+    {
+        if(startTime == 0) startTime = Time.time;
+
+        var targetTransform = target();
+        var dirToTarget = (targetTransform.position - source.transform.position).CollapseAxis(VectorAxis.Y).normalized;
+
+        if (Time.time - startTime < aimTime)
+        {
+            source.transform.forward = dirToTarget;
+            return NodeStatus.RUNNING;
+        }
+
+        if(source.Equipment.HeldObject == null) return NodeStatus.FAILED;
+
+        source.Equipment.UseObject(dirToTarget * 2.5f);
+        return NodeStatus.SUCCEEDED;
+    }
+
+    public void Reset()
+    {
+        startTime = 0;
     }
 }
