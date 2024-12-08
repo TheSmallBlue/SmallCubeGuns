@@ -19,7 +19,7 @@ public class PlayerStateClimbing : PlayerState
     Vector3 velocity;
     Vector3 dirToWall;
 
-    bool isAgainstWall => Physics.Raycast(rb.transform.position, dirToWall);
+    bool isAgainstWall => Physics.Raycast(rb.transform.position, dirToWall, 1.5f);
 
     public override void OnStateEnter(State<PlayerStates.StateType> previousState)
     {
